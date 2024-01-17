@@ -1,7 +1,8 @@
-import { Button, Paper, styled } from "@mui/material";
-import React from "react";
-import { Container } from "../Container";
-import { useThemeContext } from "../../theme/ThemeProvider";
+import { Button, Paper, styled } from '@mui/material';
+import React from 'react';
+import { Container } from '../Container';
+import { useThemeContext } from '../../theme/ThemeProvider';
+import { Modal } from 'components/Modal/Modal';
 
 const StyledPaper = styled(Paper)`
   padding: 20px 0;

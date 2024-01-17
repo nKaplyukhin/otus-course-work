@@ -1,9 +1,10 @@
-import React from "react";
-import { Header } from "./components/Header";
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider } from "./theme/ThemeProvider";
-import { GlobalStyles } from "./GlobalStyles";
-import { LoginForm } from "components/Forms";
+import React from 'react';
+import { Header } from './components/Header';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from './theme/ThemeProvider';
+import { GlobalStyles } from './GlobalStyles';
+import { LoginForm } from 'components/Forms';
+import { Layout } from 'components/Layout';
 
 export const App = () => {
   return (
@@ -11,8 +12,7 @@ export const App = () => {
       <ThemeProvider>
         <CssBaseline />
         <GlobalStyles />
-        <Header />
-        <LoginForm />
+        <Layout />
       </ThemeProvider>
     </React.StrictMode>
   );
