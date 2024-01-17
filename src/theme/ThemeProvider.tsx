@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { darkTheme, lightTheme } from "./theme";
-import { Theme } from "./types";
+import { Theme } from "./ThemeEnum";
 import { ThemeProvider as ThemeProviderMUI } from "@mui/material";
 
 interface IThemeContext {
