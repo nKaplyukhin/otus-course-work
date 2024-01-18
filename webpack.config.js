@@ -25,7 +25,8 @@ module.exports = (_, args) => ({
   },
   output: {
     path: dist,
-    publicPath: args.mode === 'development' ? `http://localhost:${port}/` : 'https://github.com/nKaplyukhin',
+    publicPath:
+      args.mode === 'development' ? `http://localhost:${port}/` : 'https://github.com/nKaplyukhin/otus-course-work',
     filename: `js/[name].js`,
     chunkFilename: `js/[name].js`,
   },
