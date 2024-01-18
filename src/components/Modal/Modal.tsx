@@ -1,6 +1,7 @@
-import { Box, Button, ClickAwayListener, css, styled } from '@mui/material';
+import { Box, Button, ClickAwayListener, IconButton, Paper, css, styled } from '@mui/material';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import CloseIcon from '@mui/icons-material/Close';
 
 const active = css`
   opacity: 1;
@@ -25,7 +26,7 @@ const StyledModalContainer = styled(Box)<IStyledModalContainerProps>`
   ${({ active }) => active};
 `;
 
-const StyledModal = styled(Box)`
+const StyledModal = styled(Paper)`
   position: absolute;
   max-width: 500px;
   min-height: 40vh;
@@ -38,35 +39,10 @@ const StyledModal = styled(Box)`
   box-shadow: 1px 1px 10px black;
 `;
 
-const CloseButton = styled('button')`
+const StyledButton = styled(IconButton)`
   position: absolute;
   right: 15px;
   top: 15px;
-  background: none;
-  border: none;
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  transition: opacity 0.3s ease-out;
-  &:hover {
-    opacity: 0.5;
-  }
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    background-color: ${({ theme }) => theme.colors.text};
-    left: 50%;
-    top: 0px;
-    width: 2px;
-    bottom: 0;
-  }
-  &::before {
-    transform: translateX(-50%) rotate(-45deg);
-  }
-  &::after {
-    transform: translateX(-50%) rotate(45deg);
-  }
 `;
 
 interface IProps {
@@ -80,7 +56,9 @@ export const Modal: FC<PropsWithChildren<IProps>> = ({ visible, onClose, childre
     <StyledModalContainer active={visible ? active : undefined}>
       <ClickAwayListener onClickAway={onClose}>
         <StyledModal ref={ref}>
-          <CloseButton onClick={onClose} />
+          <StyledButton aria-label="delete" onClick={onClose}>
+            <CloseIcon />
+          </StyledButton>
           {children}
         </StyledModal>
       </ClickAwayListener>

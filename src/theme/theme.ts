@@ -5,15 +5,14 @@ declare module "@mui/material/styles" {
     colors: {
       background: string;
       text: string;
-    };
-    palette: {
-      primary: string;
+      backgroundHover?: string;
     };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     colors?: {
       background?: string;
+      backgroundHover?: string;
       text?: string;
     };
   }
@@ -40,12 +39,14 @@ export const darkTheme = createTheme({
   colors: {
     text: "#fff",
     background: "#333",
+    backgroundHover: "#555"
   },
 });
 
 export const lightTheme = createTheme({
   colors: {
     background: "#fff",
+    backgroundHover: "#ddd",
     text: "#333",
   },
 });
