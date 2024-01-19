@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box, Typography, css, styled } from '@mui/material';
-import { EOperation, IOperationShort } from 'interfaces/operation';
+import { EOperation, IOperation } from 'interfaces/operation';
 
 const CardContainer = styled(Box)`
   display: flex;
@@ -26,19 +26,18 @@ const StyledItem = styled(Typography)`
   width: 100%;
 `;
 
-const Price = styled(Typography)<{ color: string }>`
+const Amount = styled(Typography)<{ color: string }>`
   width: 100%;
   text-align: right;
   font-weight: bold;
-  color: ${({ color }) => color};
 `;
 
 interface IProps {
-  operation: IOperationShort;
+  operation: IOperation;
 }
 
 export const ShortOperationCard: FC<IProps> = ({ operation }) => {
-  const { category, id, name, desc, price, type } = operation;
+  const { category, name, desc, amount, type } = operation;
 
   return (
     <CardContainer>
@@ -49,9 +48,9 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
         <StyledItem variant="h5">{name}</StyledItem>
         <StyledItem>{desc}</StyledItem>
       </Box>
-      <Price variant="h4" color={type === EOperation.Cost ? 'green' : 'red'}>
-        {price}
-      </Price>
+      <Amount variant="h4" color={type === EOperation.Cost ? 'green' : 'red'}>
+        {amount}
+      </Amount>
     </CardContainer>
   );
 };

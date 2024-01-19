@@ -1,10 +1,8 @@
 import React from 'react';
 import { Header } from 'components/Header';
 import { Box, styled } from '@mui/material';
-import { ShortOperationCard } from 'components/Cards';
-import { Modal } from 'components/Modal';
-import { EOperation, IOperationShort } from 'interfaces/operation';
 import { createRandomOperation } from 'functions/operation';
+import { OperationCard } from 'components/Cards/OperationCard';
 
 const LayoutContainer = styled(Box)`
   width: 100%;
@@ -17,7 +15,7 @@ export const Layout = () => {
   return (
     <LayoutContainer>
       <Header />
-      <ShortOperationCard operation={operation} />
+      <OperationCard operation={operation} />
     </LayoutContainer>
   );
 };

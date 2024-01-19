@@ -30,7 +30,7 @@ export const createRandomOperation = (createdAt: string): IOperation => {
     type,
     id: makeRandomString(5),
     name: operationName,
-    price: productPrice,
+    amount: productPrice,
     desc: 'description to ' + operationName,
     category: {
       id: makeRandomString(5),

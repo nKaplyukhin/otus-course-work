@@ -14,9 +14,7 @@ export interface IOperation {
   createdAt: string;
   name: string;
   desc?: string;
-  price: number;
+  amount: number;
   category: ICategory
   type: EOperation
 };
-
-export interface IOperationShort extends Omit<IOperation, "createdAt"> { }
