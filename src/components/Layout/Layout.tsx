@@ -3,6 +3,8 @@ import { Header } from 'components/Header';
 import { Box, styled } from '@mui/material';
 import { createRandomOperation } from 'functions/operation';
 import { OperationCard } from 'components/Cards/OperationCard';
+import { Route, Routes } from 'react-router-dom';
+import { Auth } from 'pages';
 
 const LayoutContainer = styled(Box)`
   width: 100%;
@@ -15,7 +17,10 @@ export const Layout = () => {
   return (
     <LayoutContainer>
       <Header />
-      <OperationCard operation={operation} />
+      <Routes>
+        <Route Component={Auth} path="/auth" />
+        <Route path="/" element={<OperationCard operation={operation} />} />
+      </Routes>
     </LayoutContainer>
   );
 };

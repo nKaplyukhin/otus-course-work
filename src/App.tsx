@@ -5,6 +5,8 @@ import { ThemeProvider } from './theme/ThemeProvider';
 import { GlobalStyles } from './GlobalStyles';
 import { LoginForm } from 'components/Forms';
 import { Layout } from 'components/Layout';
+import { Auth } from 'pages';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export const App = () => {
   return (
@@ -12,7 +14,9 @@ export const App = () => {
       <ThemeProvider>
         <CssBaseline />
         <GlobalStyles />
-        <Layout />
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
       </ThemeProvider>
     </React.StrictMode>
   );

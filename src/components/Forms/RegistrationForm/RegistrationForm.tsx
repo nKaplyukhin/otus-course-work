@@ -22,7 +22,7 @@ const schema = yup.object({
   password: yup.string().required('required').min(5, 'min'),
 });
 
-export const LoginForm = () => {
+export const RegistrationForm = () => {
   const {
     register,
     formState: { errors },
@@ -34,7 +34,7 @@ export const LoginForm = () => {
 
   return (
     <StyledForm component={'form'} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h5">Войти</Typography>
+      <Typography variant="h5">Зарегистрироваться</Typography>
       <TextField
         error={!!errors?.email}
         helperText={errors?.email?.message}

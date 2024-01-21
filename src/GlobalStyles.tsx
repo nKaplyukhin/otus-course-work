@@ -1,5 +1,5 @@
-import React from "react";
-import { GlobalStyles as GlobalStyleMUI } from "@mui/material";
+import React from 'react';
+import { GlobalStyles as GlobalStyleMUI } from '@mui/material';
 
 export const GlobalStyles = () => {
   return (
@@ -12,6 +12,14 @@ export const GlobalStyles = () => {
               'Helvetica Neue', sans-serif`,
           backgroundColor: theme.colors.background,
           color: theme.colors.text,
+        },
+        ul: {
+          padding: 0,
+          listStyle: 'none',
+        },
+        a: {
+          color: 'inherit',
+          textDecoration: 'none',
         },
       })}
     />
