@@ -18,7 +18,7 @@ export const GlobalStyles = () => {
           listStyle: 'none',
         },
         a: {
-          color: 'inherit',
+          color: theme.colors.text,
           textDecoration: 'none',
         },
       })}

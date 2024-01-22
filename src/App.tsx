@@ -1,23 +1,24 @@
 import React from 'react';
-import { Header } from './components/Header';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from './theme/ThemeProvider';
 import { GlobalStyles } from './GlobalStyles';
-import { LoginForm } from 'components/Forms';
 import { Layout } from 'components/Layout';
-import { Auth } from 'pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from 'store';
 
 export const App = () => {
   return (
     <React.StrictMode>
-      <ThemeProvider>
-        <CssBaseline />
-        <GlobalStyles />
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <CssBaseline />
+          <GlobalStyles />
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </ThemeProvider>
+      </Provider>
     </React.StrictMode>
   );
 };

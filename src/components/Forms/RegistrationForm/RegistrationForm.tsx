@@ -52,7 +52,7 @@ export const RegistrationForm = () => {
         {...register('password')}
       />
       <Button variant="contained" type="submit">
-        Войти
+        Зарегистрироваться
       </Button>
     </StyledForm>
   );

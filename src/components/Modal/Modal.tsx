@@ -29,7 +29,6 @@ const StyledModalContainer = styled(Box)<IStyledModalContainerProps>`
 const StyledModal = styled(Paper)`
   position: absolute;
   max-width: 500px;
-  min-height: 40vh;
   width: 100%;
   padding: 15px;
   top: 50%;

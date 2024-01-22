@@ -5,10 +5,14 @@ import { createRandomOperation } from 'functions/operation';
 import { OperationCard } from 'components/Cards/OperationCard';
 import { Route, Routes } from 'react-router-dom';
 import { Auth } from 'pages';
+import { Container } from 'components/Container';
 
 const LayoutContainer = styled(Box)`
   width: 100%;
+  height: 100vh;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Layout = () => {
@@ -17,10 +21,12 @@ export const Layout = () => {
   return (
     <LayoutContainer>
       <Header />
-      <Routes>
-        <Route Component={Auth} path="/auth" />
-        <Route path="/" element={<OperationCard operation={operation} />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route Component={Auth} path="/auth" />
+          <Route path="/" element={<OperationCard operation={operation} />} />
+        </Routes>
+      </Container>
     </LayoutContainer>
   );
 };

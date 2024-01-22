@@ -8,10 +8,9 @@ import { Box, Button, styled } from '@mui/material';
 const Container = styled(Box)`
   display: flex;
   flex-direction: row;
-  align-items: center;
   max-width: 200px;
-  height: 100vh;
-  margin: auto;
+  margin: 0 auto;
+  padding: 20px;
 `;
 
 const StyledBox = styled(Box)`

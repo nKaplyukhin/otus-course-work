@@ -1,9 +1,8 @@
 import { Box, Button, Paper, styled } from '@mui/material';
 import React from 'react';
 import { Container } from '../Container';
-import { useThemeContext } from '../../theme/ThemeProvider';
-import { Modal } from 'components/Modal/Modal';
-import { Navigation } from 'components/Navigation';
+import { ChangeThemeButton } from 'components/Buttons';
+import { NavMenu } from 'components/NavMenu';
 
 const StyledPaper = styled(Paper)`
   padding: 20px 0;
@@ -16,16 +15,16 @@ const StyledPaper = styled(Paper)`
 const HeaderContainer = styled(Box)`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const Header = () => {
-  const { changeTheme } = useThemeContext();
   return (
     <StyledPaper elevation={3}>
       <Container>
         <HeaderContainer>
-          <Navigation />
-          <Button onClick={changeTheme}>change theme</Button>
+          <NavMenu />
+          <ChangeThemeButton />
         </HeaderContainer>
       </Container>
     </StyledPaper>

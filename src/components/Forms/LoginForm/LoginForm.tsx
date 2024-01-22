@@ -3,6 +3,8 @@ import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useAppDispatch } from 'store/hooks';
+import { getToken } from 'store/tokenSlice';
 
 interface IFormInput {
   email: string;
@@ -30,7 +32,10 @@ export const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+
+  const dispatch = useAppDispatch();
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => dispatch(getToken(data));
 
   return (
     <StyledForm component={'form'} onSubmit={handleSubmit(onSubmit)}>
