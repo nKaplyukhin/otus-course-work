@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Theme {
     colors: {
       background: string;
@@ -24,29 +24,36 @@ export const darkTheme = createTheme({
       defaultProps: {},
       styleOverrides: {
         root: {
-          color: "#fff",
+          color: '#fff',
         },
       },
     },
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          color: "#fff",
+          color: '#fff',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
         },
       },
     },
   },
   colors: {
-    text: "#fff",
-    background: "#333",
-    backgroundHover: "#555"
+    text: '#fff',
+    background: '#333',
+    backgroundHover: '#555',
   },
 });
 
 export const lightTheme = createTheme({
   colors: {
-    background: "#fff",
-    backgroundHover: "#ddd",
-    text: "#333",
+    background: '#fff',
+    backgroundHover: '#ddd',
+    text: '#333',
   },
 });

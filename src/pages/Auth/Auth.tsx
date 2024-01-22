@@ -1,9 +1,7 @@
-import { LoginForm } from 'components/Forms';
-import { Modal } from 'components/Modal';
 import React, { useState } from 'react';
+import { Box, Button, styled } from '@mui/material';
 import { LoginModal } from './LoginModal';
 import { RegistrationModal } from './RegistrationModal';
-import { Box, Button, styled } from '@mui/material';
 
 const Container = styled(Box)`
   display: flex;

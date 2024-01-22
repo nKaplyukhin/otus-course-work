@@ -1,7 +1,10 @@
 const path = require('path');
-
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { DefinePlugin } = require('webpack');
+
+dotenv.config();
 
 const port = 3000;
 const dist = path.join(__dirname, 'dist');
@@ -49,5 +52,8 @@ module.exports = (_, args) => ({
       favicon: './favicon.svg',
     }),
     new CleanWebpackPlugin(),
+    new DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 });

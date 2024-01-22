@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Typography, css, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
 
 const CardContainer = styled(Box)`

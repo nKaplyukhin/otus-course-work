@@ -1,1 +1,1 @@
-export * from "./ChangeThemeButton";
+export * from './ChangeThemeButton';

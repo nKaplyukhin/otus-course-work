@@ -1,4 +1,4 @@
-import { EOperation, IOperation } from "interfaces/operation";
+import { EOperation, IOperation } from 'interfaces/operation';
 
 const productNames = ['AMD', 'INTEL', 'NVIDIA', 'ATI', 'MSI'];
 
@@ -22,7 +22,7 @@ const getRandomIndex = (length: number) => Math.floor(Math.random() * length);
 export const createRandomOperation = (createdAt: string): IOperation => {
   const operationName = productNames[getRandomIndex(productNames.length)];
   const productCategory = productCategories[getRandomIndex(productCategories.length)];
-  const productPrice = productPrices[getRandomIndex(productPrices.length)]
+  const productPrice = productPrices[getRandomIndex(productPrices.length)];
   const type = getRandomIndex(2) ? EOperation.Cost : EOperation.Profit;
 
   return {
@@ -31,7 +31,7 @@ export const createRandomOperation = (createdAt: string): IOperation => {
     id: makeRandomString(5),
     name: operationName,
     amount: productPrice,
-    desc: 'description to ' + operationName,
+    desc: `description to ${operationName}`,
     category: {
       id: makeRandomString(5),
       name: productCategory,

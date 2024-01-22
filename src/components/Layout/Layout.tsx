@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { Header } from 'components/Header';
 import { Box, styled } from '@mui/material';
-import { createRandomOperation } from 'functions/operation';
-import { OperationCard } from 'components/Cards/OperationCard';
-import { Route, Routes } from 'react-router-dom';
-import { Auth } from 'pages';
 import { Container } from 'components/Container';
 
 const LayoutContainer = styled(Box)`
@@ -15,18 +11,9 @@ const LayoutContainer = styled(Box)`
   flex-direction: column;
 `;
 
-export const Layout = () => {
-  const operation = createRandomOperation('12-11-23');
-
-  return (
-    <LayoutContainer>
-      <Header />
-      <Container>
-        <Routes>
-          <Route Component={Auth} path="/auth" />
-          <Route path="/" element={<OperationCard operation={operation} />} />
-        </Routes>
-      </Container>
-    </LayoutContainer>
-  );
-};
+export const Layout: FC<PropsWithChildren> = ({ children }) => (
+  <LayoutContainer>
+    <Header />
+    <Container>{children}</Container>
+  </LayoutContainer>
+);

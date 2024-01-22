@@ -1,49 +1,33 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useInsertionEffect,
-  useMemo,
-  useState,
-} from "react";
-import { darkTheme, lightTheme } from "./theme";
-import { Theme } from "./ThemeEnum";
-import { ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import React, { PropsWithChildren, useCallback, useContext, useInsertionEffect, useMemo, useState } from 'react';
+import { ThemeProvider as ThemeProviderMUI } from '@mui/material';
+import { darkTheme, lightTheme } from './theme';
+import { ETheme } from './ThemeEnum';
 
 interface IThemeContext {
-  theme: Theme;
+  theme: ETheme;
   changeTheme: () => void;
 }
 
-const KEY = "theme";
+const KEY = 'theme';
 
-export const ThemeContext = React.createContext<IThemeContext>(
-  {} as IThemeContext
-);
+export const ThemeContext = React.createContext<IThemeContext>({} as IThemeContext);
 
 export const useThemeContext = (): IThemeContext => useContext(ThemeContext);
 
 export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(KEY) as Theme) || Theme.light
-  );
+  const [theme, setTheme] = useState<ETheme>(() => (localStorage.getItem(KEY) as ETheme) || ETheme.light);
 
   useInsertionEffect(() => {
     localStorage.setItem(KEY, theme);
   }, [theme]);
 
-  const changeTheme = useCallback(
-    () => setTheme((v) => (v === Theme.light ? Theme.dark : Theme.light)),
-    []
-  );
+  const changeTheme = useCallback(() => setTheme((v) => (v === ETheme.light ? ETheme.dark : ETheme.light)), []);
 
   const value = useMemo(() => ({ theme, changeTheme }), [changeTheme, theme]);
 
   return (
     <ThemeContext.Provider value={value}>
-      <ThemeProviderMUI theme={theme === Theme.light ? lightTheme : darkTheme}>
-        {children}
-      </ThemeProviderMUI>
+      <ThemeProviderMUI theme={theme === ETheme.light ? lightTheme : darkTheme}>{children}</ThemeProviderMUI>
     </ThemeContext.Provider>
   );
 };

@@ -7,6 +7,4 @@ const StyledBox = styled(Box)`
   margin: 0 auto;
 `;
 
-export const Container: FC<PropsWithChildren> = ({ children }) => {
-  return <StyledBox>{children}</StyledBox>;
-};
+export const Container: FC<PropsWithChildren> = ({ children }) => <StyledBox>{children}</StyledBox>;

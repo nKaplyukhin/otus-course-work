@@ -1,24 +1,25 @@
 import React from 'react';
 import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from './theme/ThemeProvider';
-import { GlobalStyles } from './GlobalStyles';
 import { Layout } from 'components/Layout';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from 'store';
+import { Navigation } from 'components/Navigation/Navigation';
+import { ThemeProvider } from './theme/ThemeProvider';
+import { GlobalStyles } from './GlobalStyles';
 
-export const App = () => {
-  return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <ThemeProvider>
-          <CssBaseline />
-          <GlobalStyles />
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
-        </ThemeProvider>
-      </Provider>
-    </React.StrictMode>
-  );
-};
+export const App = () => (
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider>
+        <CssBaseline />
+        <GlobalStyles />
+        <BrowserRouter>
+          <Layout>
+            <Navigation />
+          </Layout>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
+);

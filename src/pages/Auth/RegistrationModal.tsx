@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { RegistrationForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
-import { FC } from 'react';
 
 interface IProps {
   isOpen: boolean;
   closeModal: () => void;
 }
-export const RegistrationModal: FC<IProps> = ({ isOpen, closeModal }) => {
-  return (
-    <Modal visible={isOpen} onClose={closeModal}>
-      <RegistrationForm />
-    </Modal>
-  );
-};
+export const RegistrationModal: FC<IProps> = ({ isOpen, closeModal }) => (
+  <Modal visible={isOpen} onClose={closeModal}>
+    <RegistrationForm onSubmit={(data) => console.log(data)} />
+  </Modal>
+);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,6 +7,10 @@ import * as yup from 'yup';
 interface IFormInput {
   email: string;
   password: string;
+}
+
+interface IProps {
+  onSubmit: SubmitHandler<IFormInput>;
 }
 
 const StyledForm = styled(Box)`
@@ -22,7 +26,7 @@ const schema = yup.object({
   password: yup.string().required('required').min(5, 'min'),
 });
 
-export const RegistrationForm = () => {
+export const RegistrationForm: FC<IProps> = ({ onSubmit }) => {
   const {
     register,
     formState: { errors },
@@ -30,10 +34,9 @@ export const RegistrationForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
   return (
-    <StyledForm component={'form'} onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm component="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h5">Зарегистрироваться</Typography>
       <TextField
         error={!!errors?.email}

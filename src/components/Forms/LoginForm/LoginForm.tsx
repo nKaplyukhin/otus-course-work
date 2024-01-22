@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useAppDispatch } from 'store/hooks';
-import { getToken } from 'store/tokenSlice';
+// import { getToken } from 'store/tokenSlice';
 
 interface IFormInput {
   email: string;
   password: string;
+}
+
+interface IProps {
+  onSubmit: SubmitHandler<IFormInput>;
 }
 
 const StyledForm = styled(Box)`
@@ -24,7 +27,7 @@ const schema = yup.object({
   password: yup.string().required('required').min(5, 'min'),
 });
 
-export const LoginForm = () => {
+export const LoginForm: FC<IProps> = ({ onSubmit }) => {
   const {
     register,
     formState: { errors },
@@ -33,12 +36,8 @@ export const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit: SubmitHandler<IFormInput> = (data) => dispatch(getToken(data));
-
   return (
-    <StyledForm component={'form'} onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm component="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h5">Войти</Typography>
       <TextField
         error={!!errors?.email}

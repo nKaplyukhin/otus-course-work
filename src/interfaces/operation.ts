@@ -4,9 +4,9 @@ export enum EOperation {
 }
 
 export interface ICategory {
-  id: string,
-  name: string
-  photo?: string
+  id: string;
+  name: string;
+  photo?: string;
 }
 
 export interface IOperation {
@@ -15,6 +15,6 @@ export interface IOperation {
   name: string;
   desc?: string;
   amount: number;
-  category: ICategory
-  type: EOperation
-};
+  category: ICategory;
+  type: EOperation;
+}

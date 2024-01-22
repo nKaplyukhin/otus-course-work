@@ -17,16 +17,14 @@ const mainMenu = [
   },
 ];
 
-export const NavMenu = () => {
-  return (
-    <nav>
-      <Stack direction="row" spacing={2}>
-        {mainMenu.map((item, index) => (
-          <NavLink key={index} to={item.link}>
-            {item.text}
-          </NavLink>
-        ))}
-      </Stack>
-    </nav>
-  );
-};
+export const NavMenu = () => (
+  <nav>
+    <Stack direction="row" spacing={2}>
+      {mainMenu.map((item, index) => (
+        <NavLink key={index} to={item.link}>
+          {item.text}
+        </NavLink>
+      ))}
+    </Stack>
+  </nav>
+);

@@ -1,4 +1,4 @@
-import { Box, Button, ClickAwayListener, IconButton, Paper, css, styled } from '@mui/material';
+import { Box, ClickAwayListener, IconButton, Paper, css, styled } from '@mui/material';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import CloseIcon from '@mui/icons-material/Close';
@@ -42,6 +42,7 @@ const StyledButton = styled(IconButton)`
   position: absolute;
   right: 15px;
   top: 15px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 interface IProps {
