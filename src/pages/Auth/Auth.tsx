@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Box, Button, styled } from '@mui/material';
 import { LoginModal } from './LoginModal';
 import { RegistrationModal } from './RegistrationModal';
+import { addDefaults } from 'utils/other';
 
 const Container = styled(Box)`
   display: flex;
   flex-direction: row;
   max-width: 200px;
   margin: 0 auto;
-  padding: 20px;
 `;
 
 const StyledBox = styled(Box)`
@@ -25,12 +25,12 @@ export const Auth = () => {
   const handleRegistrationClose = () => setIsRegistrationModal(false);
 
   const handleLoginOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.stopPropagation();
+    addDefaults(e);
     setIsLoginModal(true);
   };
 
   const handleRegistrationOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.stopPropagation();
+    addDefaults(e);
     setIsRegistrationModal(true);
   };
 

@@ -3,15 +3,13 @@ import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { ILoginForm } from 'types/form';
 // import { getToken } from 'store/tokenSlice';
 
-interface IFormInput {
-  email: string;
-  password: string;
-}
-
 interface IProps {
-  onSubmit: SubmitHandler<IFormInput>;
+  onSubmit: SubmitHandler<ILoginForm>;
+  submitError?: string;
+  isLoading?: boolean;
 }
 
 const StyledForm = styled(Box)`
@@ -22,12 +20,22 @@ const StyledForm = styled(Box)`
   align-items: center;
 `;
 
+const ErrorText = styled(Typography)`
+  padding: 0;
+  position: absolute;
+  bottom: 75px;
+  color: #d32f2f;
+  font-size: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const schema = yup.object({
   email: yup.string().email('valid').required('required'),
   password: yup.string().required('required').min(5, 'min'),
 });
 
-export const LoginForm: FC<IProps> = ({ onSubmit }) => {
+export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
   const {
     register,
     formState: { errors },
@@ -55,7 +63,8 @@ export const LoginForm: FC<IProps> = ({ onSubmit }) => {
         type="password"
         {...register('password')}
       />
-      <Button variant="contained" type="submit">
+      <ErrorText>{submitError}</ErrorText>
+      <Button  variant="contained" type="submit">
         Войти
       </Button>
     </StyledForm>

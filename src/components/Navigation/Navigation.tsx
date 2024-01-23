@@ -1,20 +1,23 @@
 import React from 'react';
-import { OperationsList } from 'components/Cards';
-import { Auth } from 'pages';
+import { Auth, Main, Profile } from 'pages';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
+import { useIsLoginNavigation } from './useIsLoginNavigation';
 
-export const Navigation = () => (
-  <Routes>
-    <Route Component={Auth} path="/auth" />
-    <Route
-      element={
-        <ProtectedRoute>
-          <div>profile</div>
-        </ProtectedRoute>
-      }
-      path="/profile"
-    />
-    <Route path="/" Component={OperationsList} />
-  </Routes>
-);
+export const Navigation = () => {
+  // useIsLoginNavigation()
+  return (
+    <Routes>
+      <Route Component={Auth} path="/auth" />
+      <Route
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+        path="/profile"
+      />
+      <Route path="/" Component={Main} />
+    </Routes>
+  );
+};

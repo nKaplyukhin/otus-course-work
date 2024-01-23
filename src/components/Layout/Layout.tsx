@@ -11,9 +11,15 @@ const LayoutContainer = styled(Box)`
   flex-direction: column;
 `;
 
+const PaddingContainer = styled(Box)`
+  padding: 20px 0;
+`;
+
 export const Layout: FC<PropsWithChildren> = ({ children }) => (
   <LayoutContainer>
     <Header />
-    <Container>{children}</Container>
+    <PaddingContainer>
+      <Container>{children}</Container>
+    </PaddingContainer>
   </LayoutContainer>
 );

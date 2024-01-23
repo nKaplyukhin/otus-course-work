@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { RootState } from 'store';
 
 export interface tokenState {
   token: string | null;
+  loading: boolean
+  error?: string
 }
 
 type SignUpBody = {
@@ -13,15 +15,24 @@ type SignUpBody = {
 
 const initialState: tokenState = {
   token: null,
+  loading: false,
 };
 
-export const getToken = createAsyncThunk('token/get', async (body: SignUpBody) => {
-  const response = await axios.post(`${process.env.API}signin`, {
-    ...body,
-  });
-  console.log(response);
+interface ValidationErrors {
+  errors: Array<{ message: string }>
+}
 
-  return response.data.token;
+export const getToken = createAsyncThunk('token/get', async (body: SignUpBody, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${process.env.API}signin`, body);
+    return response.data;
+  } catch (err) {
+    let error: AxiosError<ValidationErrors> = err
+    if (!error.response) {
+      throw err
+    }
+    return rejectWithValue(error.response.data.errors[0].message)
+  }
 });
 
 export const tokenSlice = createSlice({
@@ -33,16 +44,29 @@ export const tokenSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getToken.fulfilled, (state, action) => {
-      // Add user to the state array
-      state.token = action.payload;
+      state.loading = false
+      state.token = action.payload.token;
+      state.error = undefined
+    });
+    builder.addCase(getToken.pending, (state) => {
+      state.loading = true
+      state.error = undefined
+    });
+    builder.addCase(getToken.rejected, (state, action) => {
+      console.log(action);
+
+      if (action.payload) {
+        state.error = action.payload as string
+      } else {
+        state.error = action.error.message
+      }
     });
   },
 });
 
 export const { logout } = tokenSlice.actions;
 
-export const selectToken = (state: RootState) => state.tokenReducer.token;
+export const selectTokenData = (state: RootState) => state.tokenReducer;
 
 export default tokenSlice.reducer;

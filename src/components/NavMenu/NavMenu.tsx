@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Stack } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 
 const mainMenu = [
   {
@@ -11,19 +11,21 @@ const mainMenu = [
     link: '/profile',
     text: 'Профиль',
   },
-  {
-    link: '/auth',
-    text: 'Авторизация',
-  },
 ];
+
+const StyledNavLink = styled(NavLink)`
+  &.active {
+    color: red;
+  }
+`;
 
 export const NavMenu = () => (
   <nav>
     <Stack direction="row" spacing={2}>
       {mainMenu.map((item, index) => (
-        <NavLink key={index} to={item.link}>
+        <StyledNavLink key={index} to={item.link}>
           {item.text}
-        </NavLink>
+        </StyledNavLink>
       ))}
     </Stack>
   </nav>
