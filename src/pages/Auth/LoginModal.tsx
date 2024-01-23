@@ -16,6 +16,7 @@ export const LoginModal: FC<IProps> = ({ isOpen, closeModal }) => {
   return (
     <Modal visible={isOpen} onClose={closeModal}>
       <LoginForm
+        isLoading={loading}
         submitError={error}
         onSubmit={(data) => {
           dispatch(getToken(data)).then((response) => {

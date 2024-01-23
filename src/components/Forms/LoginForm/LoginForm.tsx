@@ -64,8 +64,8 @@ export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
         {...register('password')}
       />
       <ErrorText>{submitError}</ErrorText>
-      <Button  variant="contained" type="submit">
-        Войти
+      <Button variant="contained" type="submit">
+        {isLoading && '2'} Войти
       </Button>
     </StyledForm>
   );

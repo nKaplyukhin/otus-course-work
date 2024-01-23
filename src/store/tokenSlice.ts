@@ -56,6 +56,7 @@ export const tokenSlice = createSlice({
     builder.addCase(getToken.rejected, (state, action) => {
       console.log(action);
 
+      state.loading = false
       if (action.payload) {
         state.error = action.payload as string
       } else {
