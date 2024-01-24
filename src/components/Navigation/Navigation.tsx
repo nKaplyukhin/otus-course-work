@@ -5,7 +5,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { useIsLoginNavigation } from './useIsLoginNavigation';
 
 export const Navigation = () => {
-  // useIsLoginNavigation()
+  useIsLoginNavigation();
   return (
     <Routes>
       <Route Component={Auth} path="/auth" />

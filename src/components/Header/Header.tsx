@@ -1,7 +1,8 @@
-import { Box, Button, Paper, styled } from '@mui/material';
+import { Box, Paper, styled } from '@mui/material';
 import React from 'react';
-import { ChangeThemeButton } from 'components/Buttons';
+import { ChangeThemeButton, LoginButtton } from 'components/Buttons';
 import { NavMenu } from 'components/NavMenu';
+
 import { Container } from '../Container';
 
 const StyledPaper = styled(Paper)`
@@ -18,16 +19,14 @@ const HeaderContainer = styled(Box)`
   justify-content: space-between;
 `;
 
-export const Header = () => {
-  return (
-    <StyledPaper elevation={3}>
-      <Container>
-        <HeaderContainer>
-          <NavMenu />
-          <ChangeThemeButton />
-          {/* <Button onClick={() => logout()}>Logout</Button> */}
-        </HeaderContainer>
-      </Container>
-    </StyledPaper>
-  );
-};
+export const Header = () => (
+  <StyledPaper elevation={3}>
+    <Container>
+      <HeaderContainer>
+        <NavMenu />
+        <ChangeThemeButton />
+        <LoginButtton />
+      </HeaderContainer>
+    </Container>
+  </StyledPaper>
+);

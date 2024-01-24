@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Box, Button, TextField, Typography, styled } from '@mui/material';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { UseFormReset, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ILoginForm } from 'types/form';
 // import { getToken } from 'store/tokenSlice';
 
 interface IProps {
-  onSubmit: SubmitHandler<ILoginForm>;
+  onSubmit: (data: ILoginForm, reset: UseFormReset<ILoginForm>) => void;
   submitError?: string;
   isLoading?: boolean;
 }
@@ -40,12 +40,13 @@ export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   return (
-    <StyledForm component="form" onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm component="form" onSubmit={handleSubmit((data) => onSubmit(data, reset))}>
       <Typography variant="h5">Войти</Typography>
       <TextField
         error={!!errors?.email}

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tokenReducer from './tokenSlice';
+import tokenReducer from './profileSlice';
 
 export const store = configureStore({
   reducer: {

@@ -1,20 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { RootState } from 'store';
+import { deleteCookie, getCookie, setCookie } from 'utils/cookie';
 
 export interface tokenState {
-  token: string | null;
+  token: string | undefined;
   loading: boolean
   error?: string
 }
 
-type SignUpBody = {
+interface SignBody {
   email: string;
   password: string;
 };
 
 const initialState: tokenState = {
-  token: null,
+  token: getCookie("token"),
   loading: false,
 };
 
@@ -22,12 +23,12 @@ interface ValidationErrors {
   errors: Array<{ message: string }>
 }
 
-export const getToken = createAsyncThunk('token/get', async (body: SignUpBody, { rejectWithValue }) => {
+export const signin = createAsyncThunk('token/get', async (body: SignBody, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${process.env.API}signin`, body);
     return response.data;
   } catch (err) {
-    let error: AxiosError<ValidationErrors> = err
+    const error: AxiosError<ValidationErrors> = err
     if (!error.response) {
       throw err
     }
@@ -40,22 +41,22 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.token = null;
+      deleteCookie("token")
+      state.token = undefined;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getToken.fulfilled, (state, action) => {
+    builder.addCase(signin.fulfilled, (state, action) => {
       state.loading = false
       state.token = action.payload.token;
       state.error = undefined
+      setCookie("token", action.payload.token)
     });
-    builder.addCase(getToken.pending, (state) => {
+    builder.addCase(signin.pending, (state) => {
       state.loading = true
       state.error = undefined
     });
-    builder.addCase(getToken.rejected, (state, action) => {
-      console.log(action);
-
+    builder.addCase(signin.rejected, (state, action) => {
       state.loading = false
       if (action.payload) {
         state.error = action.payload as string

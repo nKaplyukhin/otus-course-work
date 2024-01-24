@@ -1,9 +1,10 @@
+import { useToken } from 'hooks/useToken';
 import React, { FC, PropsWithChildren } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const token = false;
 export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
   const location = useLocation();
+  const token = useToken();
 
   if (token) return children;
 
