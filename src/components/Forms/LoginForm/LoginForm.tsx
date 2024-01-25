@@ -4,6 +4,7 @@ import { UseFormReset, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ILoginForm } from 'types/form';
+import { MIN_PASSWORD_LENGTH } from 'constansts/form';
 // import { getToken } from 'store/tokenSlice';
 
 interface IProps {
@@ -31,8 +32,11 @@ const ErrorText = styled(Typography)`
 `;
 
 const schema = yup.object({
-  email: yup.string().email('valid').required('required'),
-  password: yup.string().required('required').min(5, 'min'),
+  email: yup.string().email('Неправильный e-mail').required('Обязательно для заполнения'),
+  password: yup
+    .string()
+    .required('Обязательно для заполнения')
+    .min(MIN_PASSWORD_LENGTH, `Минимум ${MIN_PASSWORD_LENGTH} символов`),
 });
 
 export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {

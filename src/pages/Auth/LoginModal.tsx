@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { LoginForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { signin, selectTokenData } from 'store/profileSlice';
+import { signin } from 'store/profileSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
 
 interface IProps {
   isOpen: boolean;
@@ -11,8 +11,7 @@ interface IProps {
 }
 
 export const LoginModal: FC<IProps> = ({ isOpen, closeModal }) => {
-  const { loading, error } = useAppSelector(selectTokenData);
-  const dispatch = useAppDispatch();
+  const { loading, signinError: error, dispatchData } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +21,7 @@ export const LoginModal: FC<IProps> = ({ isOpen, closeModal }) => {
         isLoading={loading}
         submitError={error}
         onSubmit={(data, reset) => {
-          dispatch(signin(data)).then((response) => {
+          dispatchData(signin(data)).then((response) => {
             if (response.payload.token) {
               closeModal();
               reset();

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Button, styled } from '@mui/material';
+import { addDefaults } from 'utils/other';
+import { useModalController } from 'hooks/useModalController';
 import { LoginModal } from './LoginModal';
 import { RegistrationModal } from './RegistrationModal';
-import { addDefaults } from 'utils/other';
 
 const Container = styled(Box)`
   display: flex;
@@ -18,22 +19,12 @@ const StyledBox = styled(Box)`
 `;
 
 export const Auth = () => {
-  const [isLoginModal, setIsLoginModal] = useState(false);
-  const [isRegistrationModal, setIsRegistrationModal] = useState(false);
-
-  const handleLoginClose = () => setIsLoginModal(false);
-  const handleRegistrationClose = () => setIsRegistrationModal(false);
-
-  const handleLoginOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    addDefaults(e);
-    setIsLoginModal(true);
-  };
-
-  const handleRegistrationOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    addDefaults(e);
-    setIsRegistrationModal(true);
-  };
-
+  const { isOpen: isLoginModal, handleOpen: handleLoginOpen, handleClose: handleLoginClose } = useModalController();
+  const {
+    isOpen: isRegistrationModal,
+    handleOpen: handleRegistrationOpen,
+    handleClose: handleRegistrationClose,
+  } = useModalController();
   return (
     <Container>
       <StyledBox>

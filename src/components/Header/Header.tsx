@@ -24,8 +24,10 @@ export const Header = () => (
     <Container>
       <HeaderContainer>
         <NavMenu />
-        <ChangeThemeButton />
-        <LoginButtton />
+        <Box>
+          <ChangeThemeButton />
+          <LoginButtton />
+        </Box>
       </HeaderContainer>
     </Container>
   </StyledPaper>
