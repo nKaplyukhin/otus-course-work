@@ -17,7 +17,10 @@ export const Navigation = () => {
         }
         path="/profile"
       />
-      <Route path="/" Component={Main} />
+      <Route path="/main">
+        <Route index Component={Main} />
+        <Route path="test" element={<div>123</div>} />
+      </Route>
     </Routes>
   );
 };

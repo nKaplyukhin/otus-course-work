@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { UseFormReset, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { ILoginForm } from 'types/form';
+import { ILoginForm } from 'interfaces/form';
 import { MIN_PASSWORD_LENGTH } from 'constansts/form';
 // import { getToken } from 'store/tokenSlice';
 

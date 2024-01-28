@@ -42,7 +42,7 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
   return (
     <CardContainer>
       <CategoryConatiner>
-        {category.photo ? <CategoryImage src={category.photo} /> : <StyledItem>{category.name}</StyledItem>}
+        {category?.photo ? <CategoryImage src={category.photo} /> : <StyledItem>{category?.name}</StyledItem>}
       </CategoryConatiner>
       <Box>
         <StyledItem variant="h5">{name}</StyledItem>

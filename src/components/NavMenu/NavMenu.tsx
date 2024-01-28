@@ -4,7 +4,7 @@ import { Stack, styled } from '@mui/material';
 
 const mainMenu = [
   {
-    link: '/',
+    link: '/main',
     text: 'Главная',
   },
   {

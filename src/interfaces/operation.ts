@@ -1,6 +1,6 @@
 export enum EOperation {
-  Cost,
-  Profit,
+  Cost = 'Cost',
+  Profit = 'Profit',
 }
 
 export interface ICategory {

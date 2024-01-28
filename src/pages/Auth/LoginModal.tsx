@@ -25,7 +25,7 @@ export const LoginModal: FC<IProps> = ({ isOpen, closeModal }) => {
             if (response.payload.token) {
               closeModal();
               reset();
-              navigate(location.state?.from || '/');
+              navigate(location.state?.from || '/main');
             }
           });
         }}
