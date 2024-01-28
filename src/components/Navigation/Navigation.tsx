@@ -1,6 +1,6 @@
 import React from 'react';
 import { Auth, Main, Profile } from 'pages';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { useIsLoginNavigation } from './useIsLoginNavigation';
 
@@ -8,6 +8,7 @@ export const Navigation = () => {
   useIsLoginNavigation();
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/main" replace />} />
       <Route Component={Auth} path="/auth" />
       <Route
         element={
