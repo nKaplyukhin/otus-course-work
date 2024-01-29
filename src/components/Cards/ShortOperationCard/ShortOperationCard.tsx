@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Box, Typography, styled } from '@mui/material';
+import { Box, Button, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
+import { useNavigate } from 'react-router-dom';
 
 const CardContainer = styled(Box)`
   display: flex;
@@ -37,7 +38,12 @@ interface IProps {
 }
 
 export const ShortOperationCard: FC<IProps> = ({ operation }) => {
-  const { category, name, desc, amount, type } = operation;
+  const { category, name, desc, amount, type, id } = operation;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`${id}`);
+  };
 
   return (
     <CardContainer>
@@ -51,6 +57,7 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
       <Amount variant="h4" color={type === EOperation.Cost ? 'green' : 'red'}>
         {amount}
       </Amount>
+      <Button onClick={handleClick}>Подробнее</Button>
     </CardContainer>
   );
 };

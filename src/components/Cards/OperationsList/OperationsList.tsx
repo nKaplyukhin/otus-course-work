@@ -1,12 +1,15 @@
 import React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useGetOperationsQuery } from 'store/operations';
+import { useAppSelector } from 'store/hooks';
+import { selectTokenData } from 'store/profileSlice';
 import { ShortOperationCard } from '../ShortOperationCard';
 // import { useIsVisible } from 'hooks/useIsVisible';
 
 export const OperationsList = () => {
   const targetRef = React.useRef(null);
-  const { isLoading, data } = useGetOperationsQuery();
+  const token = useAppSelector(selectTokenData)?.token;
+  const { isLoading, data } = useGetOperationsQuery(token);
 
   // const isVisible = useIsVisible(
   //   {

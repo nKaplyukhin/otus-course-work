@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth, Main, Profile } from 'pages';
+import { Auth, Card, Main, Profile } from 'pages';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { useIsLoginNavigation } from './useIsLoginNavigation';
@@ -20,7 +20,7 @@ export const Navigation = () => {
       />
       <Route path="/main">
         <Route index Component={Main} />
-        <Route path="test" element={<div>123</div>} />
+        <Route path=":id" Component={Card} />
       </Route>
     </Routes>
   );

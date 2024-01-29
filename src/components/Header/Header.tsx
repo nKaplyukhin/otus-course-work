@@ -10,6 +10,7 @@ const StyledPaper = styled(Paper)`
   border-radius: 0;
   position: sticky;
   top: 0;
+  z-index: 10;
   background: ${({ theme }) => theme.colors.background};
 `;
 

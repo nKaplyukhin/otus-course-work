@@ -8,5 +8,5 @@ interface IProps {
 export const OperationCard: FC<IProps> = ({ operation }) => {
   console.log(operation);
 
-  return <Box>asd</Box>;
+  return <Box>{operation.name}</Box>;
 };
