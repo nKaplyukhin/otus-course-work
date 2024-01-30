@@ -1,34 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
-import { useGetOperationsQuery } from 'store/operations';
-import { useAppSelector } from 'store/hooks';
-import { selectTokenData } from 'store/profileSlice';
+import { useIsVisible } from 'hooks/useIsVisible';
 import { ShortOperationCard } from '../ShortOperationCard';
-// import { useIsVisible } from 'hooks/useIsVisible';
+import { useOperationsList } from './hooks/useOperationsList.1';
 
 export const OperationsList = () => {
-  const targetRef = React.useRef(null);
-  const token = useAppSelector(selectTokenData)?.token;
-  const { isLoading, data } = useGetOperationsQuery(token);
+  const { isVisible, containerRef } = useIsVisible({
+    root: null,
+    rootMargin: '0px',
+    threshold: 0,
+  });
 
-  // const isVisible = useIsVisible(
-  //   {
-  //     root: null,
-  //     rootMargin: '0px',
-  //     threshold: 0,
-  //   },
-  //   targetRef
-  // );
+  const { isLoading, data, updatePage } = useOperationsList();
+
+  useEffect(() => {
+    if (isVisible) {
+      updatePage();
+    }
+  }, [isVisible]);
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
-  console.log(data);
 
   return (
     <Stack spacing={2}>
       {data && data.data.map((item, index) => <ShortOperationCard key={index} operation={item} />)}
-      <Box ref={targetRef} />
+      {data && <Box ref={containerRef} />}
     </Stack>
   );
 };

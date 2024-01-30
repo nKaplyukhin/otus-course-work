@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { RegistrationForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
-import { signup } from 'store/profileSlice';
+import { signup } from 'store/tokenSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 

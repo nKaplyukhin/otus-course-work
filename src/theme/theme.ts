@@ -42,6 +42,13 @@ export const darkTheme = createTheme({
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          background: '#333',
+        }
+      }
+    }
   },
   colors: {
     text: '#fff',

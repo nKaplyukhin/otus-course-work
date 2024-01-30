@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, Tooltip, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { logout } from 'store/profileSlice';
+import { logout } from 'store/tokenSlice';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';

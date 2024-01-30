@@ -15,6 +15,11 @@ interface IResponse {
   };
 }
 
+interface IOperationQuery {
+  token?: string;
+  pageSize: number
+}
+
 export const operationsApi = createApi({
   reducerPath: 'operationsApi',
   baseQuery: fetchBaseQuery({
@@ -22,18 +27,25 @@ export const operationsApi = createApi({
   }),
   tagTypes: ["Operations"],
   endpoints: (builder) => ({
-    getOperations: builder.query<IResponse, string | void>({
-      query: (token) => {
+    getOperations: builder.query<IResponse, IOperationQuery>({
+      query: ({ pageSize, token }) => {
+        const params = {
+          pagination: JSON.stringify({
+            pageSize,
+          })
+        }
         if (token) {
           return {
-            url: 'operations',
+            url: `operations`,
+            params,
             headers: {
               authorization: getTokenAuth(token)
             }
           }
         }
         return {
-          url: 'operations'
+          url: 'operations',
+          params
         }
       },
       providesTags: ["Operations"],

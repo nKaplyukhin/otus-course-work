@@ -3,9 +3,10 @@ const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { DefinePlugin } = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
 
 dotenv.config();
-
 const port = 3000;
 const dist = path.join(__dirname, 'dist');
 const src = path.join(__dirname, 'src');
@@ -38,6 +39,12 @@ module.exports = (_, args) => ({
       {
         test: /\.(js|ts)x?$/,
         loader: 'ts-loader',
+        options: {
+          getCustomTransformers: () => ({
+            before: [args.mode === 'development' && ReactRefreshTypeScript()].filter(Boolean),
+          }),
+          transpileOnly: args.mode === 'development',
+        },
         exclude: /node_modules/,
       },
       {
@@ -55,5 +62,6 @@ module.exports = (_, args) => ({
     new DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
+    args.mode === 'development' && new ReactRefreshWebpackPlugin(),
   ],
 });

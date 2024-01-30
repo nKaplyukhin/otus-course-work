@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-export function useIsVisible(options: IntersectionObserverInit, ref: React.MutableRefObject<HTMLElement | null>) {
+export function useIsVisible(options: IntersectionObserverInit) {
   const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null)
 
   const optionsMemo = useMemo(() => options, [options]);
 
@@ -15,7 +16,7 @@ export function useIsVisible(options: IntersectionObserverInit, ref: React.Mutab
       return setIsVisible(false);
     };
 
-    const target = ref.current;
+    const target = containerRef.current;
     const observer = new IntersectionObserver(observerCallback, optionsMemo);
     if (target) {
       observer.observe(target);
@@ -26,7 +27,7 @@ export function useIsVisible(options: IntersectionObserverInit, ref: React.Mutab
         observer.unobserve(target);
       }
     };
-  }, [optionsMemo, ref]);
+  }, [optionsMemo]);
 
-  return isVisible;
+  return { isVisible, containerRef };
 }

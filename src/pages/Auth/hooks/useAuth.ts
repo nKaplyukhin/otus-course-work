@@ -2,7 +2,7 @@ import { AsyncThunkAction } from "@reduxjs/toolkit";
 import { AsyncThunkConfig } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { selectTokenData } from "store/profileSlice";
+import { selectTokenData } from "store/tokenSlice";
 
 export const useAuth = () => {
   const { loading, signupError, signinError } = useAppSelector(selectTokenData);

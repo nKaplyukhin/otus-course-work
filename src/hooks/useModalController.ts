@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { addDefaults } from "utils/other";
 
 export const useModalController = (isOpenDefault: boolean = false) => {
@@ -6,8 +6,8 @@ export const useModalController = (isOpenDefault: boolean = false) => {
 
   const handleClose = () => setIsOpen(false);
 
-  const handleOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    addDefaults(e);
+  const handleOpen = (e: SyntheticEvent<HTMLElement, Event>) => {
+    addDefaults(e)
     setIsOpen(true);
   };
 

@@ -4,15 +4,20 @@ import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';
 
 const CardContainer = styled(Box)`
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+  grid-template-rows: 1fr 1fr;
   width: 100%;
+  min-height: 200px;
+  margin: auto;
   align-items: center;
   transition: background-color 0.3s ease-out;
   padding: 10px;
-  /* &:hover {
-    background-color: ${({ theme }) => theme.colors.backgroundHover};
-  } */
+  box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.5);
+`;
+
+const StyledButton = styled(Button)`
+  grid-column: 3/4;
 `;
 
 const CategoryConatiner = styled(Box)``;
@@ -48,7 +53,8 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
   return (
     <CardContainer>
       <CategoryConatiner>
-        {category?.photo ? <CategoryImage src={category.photo} /> : <StyledItem>{category?.name}</StyledItem>}
+        {category?.photo && <CategoryImage src={category.photo} />}
+        <Typography variant="body2">{category?.name}</Typography>
       </CategoryConatiner>
       <Box>
         <StyledItem variant="h5">{name}</StyledItem>
@@ -57,7 +63,9 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
       <Amount variant="h4" color={type === EOperation.Cost ? 'green' : 'red'}>
         {amount}
       </Amount>
-      <Button onClick={handleClick}>Подробнее</Button>
+      <StyledButton variant="outlined" onClick={handleClick}>
+        Подробнее
+      </StyledButton>
     </CardContainer>
   );
 };
