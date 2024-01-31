@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { FC, SyntheticEvent, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
-import { ShortOperationCard } from '../ShortOperationCard';
-import { useOperationsList } from './hooks/useOperationsList';
+import { useCategoriesList } from './hooks/useCategoriesList';
+import { CategoryCard } from '../CategoryCard';
 
-export const OperationsList = () => {
+interface IProps {
+  onChangeClick: (e: SyntheticEvent<HTMLElement, Event>, id: string) => void;
+}
+
+export const CategoriesList: FC<IProps> = ({ onChangeClick }) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',
     threshold: 0,
   });
 
-  const { isLoading, data, updatePage, isSuccess } = useOperationsList();
+  const { isLoading, data, updatePage, isSuccess } = useCategoriesList();
 
   useEffect(() => {
     if (isVisible) {
@@ -33,7 +37,7 @@ export const OperationsList = () => {
       {data && data?.data.length ? (
         <>
           {data.data.map((item, index) => (
-            <ShortOperationCard key={index} operation={item} />
+            <CategoryCard key={index} category={item} onChangeClick={onChangeClick}/>
           ))}
           <Box ref={containerRef} />
         </>

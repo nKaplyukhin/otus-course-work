@@ -1,19 +1,9 @@
-import { Box, ClickAwayListener, IconButton, Paper, css, styled } from '@mui/material';
+import { Box, ClickAwayListener, IconButton, Paper, styled } from '@mui/material';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
-const active = css`
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 100;
-`;
-
-interface IStyledModalContainerProps {
-  active?: typeof active;
-}
-
-const StyledModalContainer = styled(Box)<IStyledModalContainerProps>`
+const StyledModalContainer = styled(Box)`
   position: absolute;
   left: 0;
   top: 0;
@@ -21,9 +11,7 @@ const StyledModalContainer = styled(Box)<IStyledModalContainerProps>`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease-out;
-  opacity: 0;
-  pointer-events: none;
-  ${({ active }) => active};
+  z-index: 100;
 `;
 
 const StyledModal = styled(Paper)`
@@ -46,14 +34,13 @@ const StyledButton = styled(IconButton)`
 `;
 
 interface IProps {
-  visible: boolean;
   onClose: () => void;
 }
-export const Modal: FC<PropsWithChildren<IProps>> = ({ visible, onClose, children }) => {
+export const Modal: FC<PropsWithChildren<IProps>> = ({ onClose, children }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   return createPortal(
-    <StyledModalContainer active={visible ? active : undefined}>
+    <StyledModalContainer>
       <ClickAwayListener onClickAway={onClose}>
         <StyledModal ref={ref}>
           <StyledButton aria-label="delete" onClick={onClose}>

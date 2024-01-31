@@ -16,11 +16,10 @@ const StyledBox = styled(Box)`
 export const Card = () => {
   const { isOpen, handleOpen, handleClose } = useModalController();
   const { id } = useParams();
-  const token = useAppSelector(selectTokenData)?.token;
+  const token = useToken();
   const { data, isLoading } = useGetOperationQuery({ id: id!, token });
 
   if (isLoading) return <Typography>Loading...</Typography>;
-
 
   return (
     data && (

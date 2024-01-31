@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IOperation } from 'interfaces/operation';
-import { getTokenAuth } from 'utils/other';
+import { getHeadersWithAuthToken } from 'utils/other';
 
 interface IResponse {
   data: IOperation[];
@@ -34,37 +34,26 @@ export const operationsApi = createApi({
             pageSize,
           })
         }
-        if (token) {
-          return {
-            url: `operations`,
-            params,
-            headers: {
-              authorization: getTokenAuth(token)
-            }
-          }
-        }
         return {
           url: 'operations',
-          params
+          ...getHeadersWithAuthToken(token),
+          params,
         }
       },
-      providesTags: ["Operations"],
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.data.map(({ id }) => ({ type: 'Operations' as const, id })),
+            { type: 'Operations', id: 'LIST' },
+          ]
+          : [{ type: 'Operations', id: 'LIST' }],
     }),
-    getOperation: builder.query<IOperation, { id: string, token: string | void }>({
-      query: ({ id, token }) => {
-        if (token) {
-          return {
-            url: `operations/${id}`,
-            headers: {
-              authorization: getTokenAuth(token)
-            }
-          }
-        }
-        return {
-          url: `operations/${id}`
-        }
-      },
-      providesTags: ["Operations"],
+    getOperation: builder.query<IOperation, { id: string, token: string | undefined }>({
+      query: ({ id, token }) => ({
+        url: `operations/${id}`,
+        ...getHeadersWithAuthToken(token)
+      }),
+      providesTags: (_result, _error, { id }) => [{ type: 'Operations', id }],
     }),
   }),
 });

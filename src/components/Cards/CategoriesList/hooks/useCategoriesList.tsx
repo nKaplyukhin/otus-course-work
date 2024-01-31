@@ -1,15 +1,14 @@
+import { useToken } from 'hooks/useToken';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector } from 'store/hooks';
-import { useGetOperationsQuery } from 'store/rtk/operations';
-import { selectTokenData } from 'store/tokenSlice';
+import { useGetCategoriesQuery } from 'store/rtk/categories';
 
 const PAGE_SIZE_STEP = 5;
 
-export const useOperationsList = () => {
-  const token = useAppSelector(selectTokenData)?.token;
-  
+export const useCategoriesList = () => {
+  const token = useToken();
+
   const [pageSize, setPageSize] = useState(5);
-  const { isLoading, data: opeartionData } = useGetOperationsQuery({ pageSize, token });
+  const { isLoading, data: opeartionData, isSuccess } = useGetCategoriesQuery({ pageSize, token });
   const [data, setData] = useState<typeof opeartionData>();
 
   useEffect(() => {
@@ -24,5 +23,5 @@ export const useOperationsList = () => {
     setPageSize((p) => p + PAGE_SIZE_STEP);
   }, [data?.pagination, pageSize]);
 
-  return { isLoading, data, updatePage };
+  return { isLoading, data, updatePage, isSuccess };
 };

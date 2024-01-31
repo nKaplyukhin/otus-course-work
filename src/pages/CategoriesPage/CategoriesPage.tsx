@@ -1,33 +1,34 @@
 import { Box, styled } from '@mui/material';
-import { OperationsList } from 'components/Cards';
+import { CategoriesList } from 'components/Cards/CategoriesList';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
-import { CardModal } from 'pages/Card/CardModal';
 import React, { SyntheticEvent, useState } from 'react';
+import { CategoriesModal } from './CategoriesModal';
 
 const StyledBox = styled(Box)`
   max-width: 700px;
   margin: auto;
 `;
 
-export const Main = () => {
+export const CategoriesPage = () => {
   const { isOpen, handleClose, handleOpen } = useModalController();
   const [id, setId] = useState<string | null>(null);
 
-  // const onChangeClick = (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
-  //   setId(id);
-  //   handleOpen(e);
-  // };
+  const onChangeClick = (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
+    setId(id);
+    handleOpen(e);
+  };
 
   const onOpenClick = (e: SyntheticEvent<HTMLElement, Event>) => {
     setId(null);
     handleOpen(e);
   };
+
   return (
     <StyledBox>
       <FilterBar onAddClick={onOpenClick} />
-      <OperationsList />
-      {isOpen && <CardModal closeModal={handleClose} />}
+      <CategoriesList onChangeClick={onChangeClick} />
+      {isOpen && <CategoriesModal id={id} closeModal={handleClose} />}
     </StyledBox>
   );
 };

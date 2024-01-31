@@ -50,6 +50,8 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
     navigate(`${id}`);
   };
 
+  // console.log(category);
+
   return (
     <CardContainer>
       <CategoryConatiner>

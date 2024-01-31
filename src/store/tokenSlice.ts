@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { TOKEN_KEY } from 'constansts/token';
-import { RootState } from 'store';
+import { RootState } from 'store/store';
 import { ILoginForm, IRegistrationForm } from 'interfaces/form';
 import { deleteCookie, getCookie, setCookie } from 'utils/cookie';
+import { ValidationErrors } from 'interfaces/store';
 
 export interface tokenState {
   token: string | undefined;
@@ -17,9 +18,6 @@ const initialState: tokenState = {
   loading: false,
 };
 
-interface ValidationErrors {
-  errors: Array<{ message: string }>;
-}
 
 export const signin = createAsyncThunk('token/login', async (body: ILoginForm, { rejectWithValue }) => {
   try {

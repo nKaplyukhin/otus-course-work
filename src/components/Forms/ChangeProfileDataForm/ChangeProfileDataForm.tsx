@@ -2,14 +2,15 @@ import React, { FC } from 'react';
 import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ILoginForm } from 'interfaces/form';
-import { loginSchema } from '../schemas';
-// import { getToken } from 'store/tokenSlice';
+import { IChangeDataForm } from 'interfaces/form';
+import { IProfileData } from 'interfaces/profile';
+import { changeProfileDataSchema } from '../schemas';
 
 interface IProps {
-  onSubmit: (data: ILoginForm) => void;
+  onSubmit: (data: IChangeDataForm) => void;
   submitError?: string;
   isLoading?: boolean;
+  profileData: IProfileData;
 }
 
 const StyledForm = styled(Box)`
@@ -30,37 +31,30 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
-export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
+export const ChangeProfileDataForm: FC<IProps> = ({ onSubmit, submitError, isLoading, profileData }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(changeProfileDataSchema),
   });
 
   return (
     <StyledForm component="form" onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <Typography variant="h5">Войти</Typography>
+      <Typography variant="h5">Изменить данные</Typography>
       <TextField
-        error={!!errors?.email}
-        helperText={errors?.email?.message}
-        label="e-mail"
+        error={!!errors?.name}
+        helperText={errors?.name?.message}
+        defaultValue={profileData.name}
         size="small"
+        label="имя"
         type="text"
-        {...register('email')}
-      />
-      <TextField
-        error={!!errors?.password}
-        helperText={errors?.password?.message}
-        size="small"
-        label="пароль"
-        type="password"
-        {...register('password')}
+        {...register('name')}
       />
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-        {isLoading && '2'} Войти
+        {isLoading && '2'} Изменить
       </Button>
     </StyledForm>
   );

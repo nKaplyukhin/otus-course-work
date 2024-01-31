@@ -1,6 +1,7 @@
 import React from 'react';
 import { Auth, Card, Main, Profile } from 'pages';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { CategoriesPage } from 'pages/CategoriesPage';
 import { ProtectedRoute } from './ProtectedRoute';
 import { useIsLoginNavigation } from './useIsLoginNavigation';
 
@@ -18,6 +19,10 @@ export const Navigation = () => {
         }
         path="/profile"
       />
+      <Route path="/category">
+        <Route index Component={CategoriesPage} />
+        <Route path=":id" Component={Card} />
+      </Route>
       <Route path="/main">
         <Route index Component={Main} />
         <Route path=":id" Component={Card} />

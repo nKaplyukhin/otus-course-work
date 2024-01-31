@@ -19,7 +19,7 @@ interface IProps {
 }
 
 export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
-  const { category, name, desc, amount, type, id } = operation;
+  const { category, name, desc, amount, type } = operation;
   const navigate = useNavigate();
 
   const handleBackClick = () => {

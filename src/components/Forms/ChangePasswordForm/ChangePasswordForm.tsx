@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { Box, Button, TextField, Typography, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { IRegistrationForm } from 'interfaces/form';
-import { registrationSchema } from '../schemas';
+import { IChangePasswordForm } from 'interfaces/form';
+import { changePasswordSchema } from '../schemas';
 
 interface IProps {
-  onSubmit: (data: IRegistrationForm) => void;
+  onSubmit: (data: IChangePasswordForm) => void;
   submitError?: string;
   isLoading?: boolean;
 }
@@ -29,26 +29,18 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
-export const RegistrationForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
+export const ChangePasswordForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(registrationSchema),
+    resolver: yupResolver(changePasswordSchema),
   });
 
   return (
     <StyledForm component="form" onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <Typography variant="h5">Зарегистрироваться</Typography>
-      <TextField
-        error={!!errors?.email}
-        helperText={errors?.email?.message}
-        label="e-mail"
-        size="small"
-        type="text"
-        {...register('email')}
-      />
+      <Typography variant="h5">Изменить пароль</Typography>
       <TextField
         error={!!errors?.password}
         helperText={errors?.password?.message}
@@ -58,16 +50,16 @@ export const RegistrationForm: FC<IProps> = ({ onSubmit, submitError, isLoading 
         {...register('password')}
       />
       <TextField
-        error={!!errors?.passwordRepeat}
-        helperText={errors?.passwordRepeat?.message}
+        error={!!errors?.newPassword}
+        helperText={errors?.newPassword?.message}
         size="small"
-        label="повторите пароль"
+        label="новый пароль"
         type="password"
-        {...register('passwordRepeat')}
+        {...register('newPassword')}
       />
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-        {isLoading && '2'} Зарегистрироваться
+        {isLoading && '2'} Изменить
       </Button>
     </StyledForm>
   );

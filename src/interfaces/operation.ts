@@ -1,12 +1,8 @@
+import { ICategory } from "./category";
+
 export enum EOperation {
   Cost = 'Cost',
   Profit = 'Profit',
-}
-
-export interface ICategory {
-  id: string;
-  name: string;
-  photo?: string;
 }
 
 export interface IOperation {

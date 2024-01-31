@@ -3,33 +3,30 @@ import { LoginForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { signin } from 'store/tokenSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ILoginForm } from 'interfaces/form';
 import { useAuth } from './hooks/useAuth';
 
 interface IProps {
-  isOpen: boolean;
   closeModal: () => void;
 }
 
-export const LoginModal: FC<IProps> = ({ isOpen, closeModal }) => {
+export const LoginModal: FC<IProps> = ({ closeModal }) => {
   const { loading, signinError: error, dispatchData } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const onSubmit = async (data: ILoginForm) => {
+    dispatchData(signin(data)).then((response) => {
+      if (response.payload.token) {
+        closeModal();
+        navigate(location.state?.from || '/main');
+      }
+    });
+  };
+
   return (
-    <Modal visible={isOpen} onClose={closeModal}>
-      <LoginForm
-        isLoading={loading}
-        submitError={error}
-        onSubmit={(data, reset) => {
-          dispatchData(signin(data)).then((response) => {
-            if (response.payload.token) {
-              closeModal();
-              reset();
-              navigate(location.state?.from || '/main');
-            }
-          });
-        }}
-      />
+    <Modal onClose={closeModal}>
+      <LoginForm isLoading={loading} submitError={error} onSubmit={onSubmit} />
     </Modal>
   );
 };

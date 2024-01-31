@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, styled } from '@mui/material';
-import { addDefaults } from 'utils/other';
 import { useModalController } from 'hooks/useModalController';
 import { LoginModal } from './LoginModal';
 import { RegistrationModal } from './RegistrationModal';
@@ -25,6 +24,7 @@ export const Auth = () => {
     handleOpen: handleRegistrationOpen,
     handleClose: handleRegistrationClose,
   } = useModalController();
+
   return (
     <Container>
       <StyledBox>
@@ -35,8 +35,8 @@ export const Auth = () => {
           Зарегистрироваться
         </Button>
       </StyledBox>
-      <LoginModal isOpen={isLoginModal} closeModal={handleLoginClose} />
-      <RegistrationModal isOpen={isRegistrationModal} closeModal={handleRegistrationClose} />
+      {isLoginModal && <LoginModal closeModal={handleLoginClose} />}
+      {isRegistrationModal && <RegistrationModal closeModal={handleRegistrationClose} />}
     </Container>
   );
 };

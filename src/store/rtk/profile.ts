@@ -1,13 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from 'store';
+import { IProfileData } from 'interfaces/profile';
+import { RootState } from 'store/store';
 import { getTokenAuth } from 'utils/other';
 
-interface IResponse {
-  id: string;
-  name: string;
-  email: string;
-  signUpDate: Date;
+interface IChangePasswordBody {
+  password: string;
+  newPassword: string;
+};
+
+interface IResponseChangePassword {
+  success: boolean
 }
+
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
@@ -22,11 +26,18 @@ export const profileApi = createApi({
   }),
   tagTypes: ["Profile"],
   endpoints: (builder) => ({
-    getProfile: builder.query<IResponse, void>({
+    getProfile: builder.query<IProfileData, void>({
       query: () => 'profile',
       providesTags: ["Profile"],
+    }),
+    changePassword: builder.mutation<IResponseChangePassword, IChangePasswordBody>({
+      query: (body) => ({ url: `/profile/change-password`, method: 'POST', body }),
+    }),
+    changeProfileData: builder.mutation<IProfileData, Partial<IProfileData>>({
+      query: (body) => ({ url: `/profile`, method: 'POST', body }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 });
 
-export const { useGetProfileQuery } = profileApi;
+export const { useGetProfileQuery, useChangePasswordMutation, useChangeProfileDataMutation } = profileApi;

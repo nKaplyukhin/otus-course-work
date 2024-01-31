@@ -11,6 +11,10 @@ const mainMenu = [
     link: '/profile',
     text: 'Профиль',
   },
+  {
+    link: '/category',
+    text: 'Категории',
+  },
 ];
 
 const StyledNavLink = styled(NavLink)`
