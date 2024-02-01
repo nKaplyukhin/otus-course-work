@@ -2,7 +2,7 @@ import { Box, styled } from '@mui/material';
 import { CategoriesList } from 'components/Cards/CategoriesList';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { useToken } from 'hooks/useToken';
 import { CategoriesModal } from './CategoriesModal';
 
@@ -16,10 +16,13 @@ export const CategoriesPage = () => {
   const [id, setId] = useState<string | null>(null);
   const token = useToken();
 
-  const onChangeClick = (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
-    setId(id);
-    handleOpen(e);
-  };
+  const onChangeClick = useCallback(
+    (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
+      setId(id);
+      handleOpen(e);
+    },
+    [handleOpen]
+  );
 
   const onOpenClick = (e: SyntheticEvent<HTMLElement, Event>) => {
     setId(null);

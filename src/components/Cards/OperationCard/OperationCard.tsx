@@ -3,6 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, sty
 import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from 'hooks/useToken';
+import { getDateFromDateString } from 'utils/date';
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -17,10 +18,11 @@ const StyledCardActions = styled(CardActions)`
 interface IProps {
   operation: IOperation;
   onChangeClick: (e: SyntheticEvent<HTMLElement, Event>) => void;
+  onDeleteClick: () => void;
 }
 
-export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
-  const { category, name, desc, amount, type } = operation;
+export const OperationCard: FC<IProps> = ({ operation, onChangeClick, onDeleteClick }) => {
+  const { category, name, desc, amount, type, createdAt } = operation;
   const navigate = useNavigate();
   const token = useToken();
 
@@ -42,6 +44,7 @@ export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
             {name}
           </Typography>
           <Typography variant="body2">{desc}</Typography>
+          <Typography variant="body2">Дата {getDateFromDateString(createdAt)}</Typography>
         </Box>
         <Typography sx={{ fontWeight: 'bold' }} variant="h5" color={type === EOperation.Cost ? 'green' : 'red'}>
           {amount}
@@ -56,7 +59,7 @@ export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
             <Button onClick={onChangeClick} variant="contained" size="small">
               Изменить
             </Button>
-            <Button variant="contained" color="error" size="small">
+            <Button onClick={onDeleteClick} variant="contained" color="error" size="small">
               Удалить
             </Button>
           </>

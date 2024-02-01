@@ -8,7 +8,7 @@ import { IOperation } from 'interfaces/operation';
 
 interface IProps {
   closeModal: () => void;
-  data: IOperation;
+  data?: IOperation;
 }
 
 export const CardModal: FC<IProps> = ({ closeModal, data }) => {

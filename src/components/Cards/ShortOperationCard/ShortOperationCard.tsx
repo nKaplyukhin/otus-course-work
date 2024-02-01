@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Box, Button, Card, CardActions, CardContent, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';
+import { getDateFromDateString } from 'utils/date';
 
 const CategoryImage = styled('img')`
   border: 1px solid red;
@@ -28,8 +29,8 @@ interface IProps {
   operation: IOperation;
 }
 
-export const ShortOperationCard: FC<IProps> = ({ operation }) => {
-  const { category, name, desc, amount, type, id } = operation;
+export const ShortOperationCard = memo(({ operation }: IProps) => {
+  const { category, name, desc, amount, type, id, createdAt } = operation;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -48,6 +49,7 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
         <Box>
           <StyledItem variant="h5">{name}</StyledItem>
           <StyledItem>{desc}</StyledItem>
+          <StyledItem>Дата {getDateFromDateString(createdAt)}</StyledItem>
         </Box>
         <Amount variant="h4" color={type === EOperation.Cost ? 'green' : 'red'}>
           {amount}
@@ -60,4 +62,6 @@ export const ShortOperationCard: FC<IProps> = ({ operation }) => {
       </CardActions>
     </Card>
   );
-};
+});
+
+ShortOperationCard.displayName = 'ShortOperationCard';

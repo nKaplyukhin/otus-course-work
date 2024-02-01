@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, styled } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { OperationCard } from 'components/Cards';
-import { useGetOperationQuery } from 'store/rtk/operations';
+import { useDeleteOperationMutation, useGetOperationQuery } from 'store/rtk/operations';
 import { useModalController } from 'hooks/useModalController';
 import { useToken } from 'hooks/useToken';
 import { CardModal } from './CardModal';
@@ -16,14 +16,27 @@ export const Card = () => {
   const { isOpen, handleOpen, handleClose } = useModalController();
   const { id } = useParams();
   const token = useToken();
-  const { data, isLoading } = useGetOperationQuery({ id: id!, token });
+  const { data, isLoading, isSuccess } = useGetOperationQuery({ id: id!, token });
+  const [deleteOperation] = useDeleteOperationMutation();
+  const navigate = useNavigate();
 
   if (isLoading) return <Typography>Loading...</Typography>;
+
+  if (!isSuccess) {
+    return <Typography>Произошла ошибка</Typography>;
+  }
+
+  const handleClickDelete = () => {
+    if (id) {
+      deleteOperation({ id, token });
+      navigate('/');
+    }
+  };
 
   return (
     data && (
       <StyledBox>
-        <OperationCard operation={data} onChangeClick={handleOpen} />
+        <OperationCard onDeleteClick={handleClickDelete} operation={data} onChangeClick={handleOpen} />
         {isOpen && <CardModal closeModal={handleClose} data={data} />}
       </StyledBox>
     )

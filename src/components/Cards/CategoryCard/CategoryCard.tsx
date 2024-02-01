@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, memo } from 'react';
 import { Button, Paper, Typography, styled } from '@mui/material';
 import { ICategory } from 'interfaces/category';
 import { useDeleteCategoryMutation } from 'store/rtk/categories';
@@ -22,7 +22,7 @@ interface IProps {
   onChangeClick: (e: SyntheticEvent<HTMLElement, Event>, id: string) => void;
 }
 
-export const CategoryCard: FC<IProps> = ({ category, onChangeClick }) => {
+export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   const [deleteCategory] = useDeleteCategoryMutation();
   const token = useToken();
 
@@ -47,4 +47,6 @@ export const CategoryCard: FC<IProps> = ({ category, onChangeClick }) => {
       )}
     </StyledBox>
   );
-};
+});
+
+CategoryCard.displayName = 'CategoryCard';
