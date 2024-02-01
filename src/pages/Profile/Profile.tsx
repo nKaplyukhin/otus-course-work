@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useModalController } from 'hooks/useModalController';
 import React from 'react';
 import { useGetProfileQuery } from 'store/rtk/profile';
+import { ProfileCard } from 'components/Cards/ProfileCard';
 import { ChangePasswordModal } from './ChangePasswordModal';
 import { ChangeProfileDataModal } from './ChangeProfileDataModal';
 
@@ -36,29 +37,9 @@ export const Profile = () => {
   return (
     data && (
       <StyledBox>
-        <Card>
-          <CardContent>
-            <Typography gutterBottom variant="h5">
-              Имя пользователя: {data.name}
-            </Typography>
-            <Typography variant="h5"> Эл. почта: {data.email}</Typography>
-          </CardContent>
-          <CardActions>
-            <Button onClick={changeProfileDataOpen} variant="outlined" size="small">
-              Изменить данные
-            </Button>
-            <Button onClick={changePasswordOpen} variant="contained" size="small">
-              Изменить пароль
-            </Button>
-          </CardActions>
-        </Card>
+        <ProfileCard onChangeClick={changePasswordOpen} onDeleteClick={changeProfileDataOpen} data={data} />
         {isChangePasswordOpen && <ChangePasswordModal closeModal={changePasswordClose} />}
-        {isChangeProfileDataOpen && (
-          <ChangeProfileDataModal
-            profileData={data}
-            closeModal={changeProfileDataClose}
-          />
-        )}
+        {isChangeProfileDataOpen && <ChangeProfileDataModal profileData={data} closeModal={changeProfileDataClose} />}
       </StyledBox>
     )
   );

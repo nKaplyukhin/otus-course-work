@@ -21,7 +21,7 @@ export const Auth = () => {
   const { isOpen: isLoginModal, handleOpen: handleLoginOpen, handleClose: handleLoginClose } = useModalController();
   const {
     isOpen: isRegistrationModal,
-    handleOpen: handleRegistrationOpen,
+  handleOpen: handleRegistrationOpen,
     handleClose: handleRegistrationClose,
   } = useModalController();
 
