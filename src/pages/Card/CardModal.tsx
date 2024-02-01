@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AddOperationForm } from 'components/Forms';
+import { OperationForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { useToken } from 'hooks/useToken';
 import { useAddOperationMutation, useUpdateOperationMutation } from 'store/rtk/operations';
@@ -39,7 +39,7 @@ export const CardModal: FC<IProps> = ({ closeModal, data }) => {
 
   return (
     <Modal onClose={closeModal}>
-      <AddOperationForm onSubmit={onSubmit} values={data} />
+      <OperationForm onSubmit={onSubmit} values={data} />
     </Modal>
   );
 };

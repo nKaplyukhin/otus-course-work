@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ICategory } from 'interfaces/category';
+import { ISorting } from 'interfaces/sorting';
 import { getHeadersWithAuthToken } from 'utils/other';
 
 interface IResponse {
@@ -9,15 +10,12 @@ interface IResponse {
     pageNumber: number;
     total: number;
   };
-  sorting: {
-    type: 'ASC' | 'DESC';
-    field: 'id' | 'createdAt' | 'updatedAt' | 'name';
-  };
 }
 
 interface ICategoryQuery {
   token?: string;
-  pageSize?: number
+  pageSize?: number;
+  sorting?: ISorting;
 }
 
 interface IDeleteResponse {
@@ -34,11 +32,12 @@ export const categoriesApi = createApi({
   tagTypes: ["Categories"],
   endpoints: (builder) => ({
     getCategories: builder.query<IResponse, ICategoryQuery>({
-      query: ({ pageSize, token }) => {
+      query: ({ pageSize, token, sorting }) => {
         const params = {
           pagination: JSON.stringify({
             pageSize,
-          })
+          }),
+          sorting: JSON.stringify(sorting)
         }
         return {
           url: 'categories',
@@ -75,6 +74,7 @@ export const categoriesApi = createApi({
       }),
       invalidatesTags: ['Categories']
     }),
+
     deleteCategory: builder.mutation<ICategory, IDeleteResponse>({
       query: ({ id, token }) => ({
         url: `categories/${id}`,

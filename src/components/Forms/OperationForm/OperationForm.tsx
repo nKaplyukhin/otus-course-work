@@ -32,7 +32,7 @@ interface IProps {
   isLoading?: boolean;
 }
 
-export const AddOperationForm: FC<IProps> = ({ values, submitError, isLoading, onSubmit }) => {
+export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSubmit }) => {
   const {
     register,
     formState: { errors },

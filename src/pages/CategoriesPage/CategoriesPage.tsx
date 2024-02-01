@@ -3,7 +3,7 @@ import { CategoriesList } from 'components/Cards/CategoriesList';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
-import { useToken } from 'hooks/useToken';
+import { useSorting } from 'hooks/useSorting';
 import { CategoriesModal } from './CategoriesModal';
 
 const StyledBox = styled(Box)`
@@ -14,7 +14,7 @@ const StyledBox = styled(Box)`
 export const CategoriesPage = () => {
   const { isOpen, handleClose, handleOpen } = useModalController();
   const [id, setId] = useState<string | null>(null);
-  const token = useToken();
+  const [sorting, changeSorting] = useSorting();
 
   const onChangeClick = useCallback(
     (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
@@ -31,8 +31,8 @@ export const CategoriesPage = () => {
 
   return (
     <StyledBox>
-      {token && <FilterBar onAddClick={onOpenClick} />}
-      <CategoriesList onChangeClick={onChangeClick} />
+      <FilterBar onChangeSorting={changeSorting} onAddClick={onOpenClick} />
+      <CategoriesList onChangeClick={onChangeClick} sorting={sorting} />
       {isOpen && <CategoriesModal id={id} closeModal={handleClose} />}
     </StyledBox>
   );

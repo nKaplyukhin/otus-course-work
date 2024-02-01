@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IOperation } from 'interfaces/operation';
+import { ISorting } from 'interfaces/sorting';
 import { getHeadersWithAuthToken } from 'utils/other';
 
 interface IResponse {
@@ -9,15 +10,12 @@ interface IResponse {
     pageNumber: number;
     total: number;
   };
-  sorting: {
-    type: 'ASC' | 'DESC';
-    field: 'id' | 'createdAt' | 'updatedAt' | 'name';
-  };
 }
 
 interface IOperationQuery {
   token?: string;
-  pageSize: number
+  pageSize: number,
+  sorting?: ISorting;
 }
 
 interface IDeleteResponse {
@@ -33,11 +31,12 @@ export const operationsApi = createApi({
   tagTypes: ["Operations"],
   endpoints: (builder) => ({
     getOperations: builder.query<IResponse, IOperationQuery>({
-      query: ({ pageSize, token }) => {
+      query: ({ pageSize, sorting, token }) => {
         const params = {
           pagination: JSON.stringify({
             pageSize,
-          })
+          }),
+          sorting: JSON.stringify(sorting)
         }
         return {
           url: 'operations',

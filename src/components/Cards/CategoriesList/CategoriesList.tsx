@@ -1,25 +1,30 @@
 import React, { FC, SyntheticEvent, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
-import { useCategoriesList } from './hooks/useCategoriesList';
+import { useToken } from 'hooks/useToken';
+import { useGetCategoriesQuery } from 'store/rtk/categories';
+import { usePageSize } from 'hooks/usePageSize';
+import { ISorting } from 'interfaces/sorting';
 import { CategoryCard } from '../CategoryCard';
 
 interface IProps {
   onChangeClick: (e: SyntheticEvent<HTMLElement, Event>, id: string) => void;
+  sorting: ISorting;
 }
 
-export const CategoriesList: FC<IProps> = ({ onChangeClick }) => {
+export const CategoriesList: FC<IProps> = ({ onChangeClick, sorting }) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',
     threshold: 0,
   });
-
-  const { isLoading, data, updatePage, isSuccess } = useCategoriesList();
+  const token = useToken();
+  const { pageSize, updatePage } = usePageSize();
+  const { isLoading, data, isSuccess } = useGetCategoriesQuery({ pageSize, token, sorting });
 
   useEffect(() => {
     if (isVisible) {
-      updatePage();
+      updatePage(data?.pagination.total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);

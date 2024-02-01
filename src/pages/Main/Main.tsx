@@ -2,7 +2,7 @@ import { Box, styled } from '@mui/material';
 import { OperationsList } from 'components/Cards';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
-import { useToken } from 'hooks/useToken';
+import { useSorting } from 'hooks/useSorting';
 import { CardModal } from 'pages/Card/CardModal';
 import React from 'react';
 
@@ -13,12 +13,12 @@ const StyledBox = styled(Box)`
 
 export const Main = () => {
   const { isOpen, handleClose, handleOpen } = useModalController();
-  const token = useToken();
+  const [sorting, changeSorting] = useSorting();
 
   return (
     <StyledBox>
-      {token && <FilterBar onAddClick={handleOpen} />}
-      <OperationsList />
+      <FilterBar onAddClick={handleOpen} onChangeSorting={changeSorting} />
+      <OperationsList sorting={sorting} />
       {isOpen && <CardModal closeModal={handleClose} />}
     </StyledBox>
   );

@@ -1,31 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
+import { useToken } from 'hooks/useToken';
+import { useGetOperationsQuery } from 'store/rtk/operations';
+import { usePageSize } from 'hooks/usePageSize';
+import { ISorting } from 'interfaces/sorting';
 import { ShortOperationCard } from '../ShortOperationCard';
-import { useOperationsList } from './hooks/useOperationsList';
 
-export const OperationsList = () => {
+interface IProps {
+  sorting: ISorting;
+}
+export const OperationsList: FC<IProps> = ({ sorting }) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',
     threshold: 0,
   });
-
-  const { isLoading, data, updatePage, isSuccess } = useOperationsList();
+  const token = useToken();
+  const { pageSize, updatePage } = usePageSize();
+  const { isLoading, data } = useGetOperationsQuery({ pageSize, token, sorting });
 
   useEffect(() => {
     if (isVisible) {
-      updatePage();
+      updatePage(data?.pagination.total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
-  }
-
-  if (!isSuccess) {
-    return <Typography>Произошла ошибка</Typography>;
   }
 
   return (
