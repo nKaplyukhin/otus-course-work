@@ -37,7 +37,7 @@ export const Profile = () => {
   return (
     data && (
       <StyledBox>
-        <ProfileCard onChangeClick={changePasswordOpen} onDeleteClick={changeProfileDataOpen} data={data} />
+        <ProfileCard onChangeDataClick={changeProfileDataOpen} onChangePasswordClick={changePasswordOpen} data={data} />
         {isChangePasswordOpen && <ChangePasswordModal closeModal={changePasswordClose} />}
         {isChangeProfileDataOpen && <ChangeProfileDataModal profileData={data} closeModal={changeProfileDataClose} />}
       </StyledBox>
