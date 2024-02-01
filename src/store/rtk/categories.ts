@@ -17,7 +17,7 @@ interface IResponse {
 
 interface ICategoryQuery {
   token?: string;
-  pageSize: number
+  pageSize?: number
 }
 
 interface IDeleteResponse {
@@ -48,12 +48,14 @@ export const categoriesApi = createApi({
       },
       providesTags: ["Categories"],
     }),
+
     getCategory: builder.query<ICategory, { id: string | null, token: string | undefined }>({
       query: ({ id, token }) => ({
         url: `categories/${id}`,
         ...getHeadersWithAuthToken(token)
       }),
     }),
+
     addCategory: builder.mutation({
       query: ({ body, token }) => ({
         url: "categories",
@@ -63,6 +65,7 @@ export const categoriesApi = createApi({
       }),
       invalidatesTags: ['Categories']
     }),
+
     updateCategory: builder.mutation({
       query: ({ body, id, token }) => ({
         url: `categories/${id}`,

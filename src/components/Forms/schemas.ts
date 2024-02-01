@@ -33,7 +33,7 @@ export const addOperationSchema = yup.object({
   amount: yup.number().positive('Должно быть > 0').required('Обязательно для заполнения'),
   name: yup.string().required('Обязательно для заполнения'),
   desc: yup.string(),
-  category: yup.string().required('Обязательно для заполнения'),
+  categoryId: yup.string().required('Обязательно для заполнения'),
   type: yup.mixed<EOperation>().oneOf(Object.values(EOperation)),
 });
 

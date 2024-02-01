@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { UseFormReset, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { EOperation } from 'interfaces/operation';
-import { Box, Button, MenuItem, Select, TextField, Typography, styled } from '@mui/material';
-// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { IAddOperationForm } from 'interfaces/form';
+import { EOperation, IOperation } from 'interfaces/operation';
+import { Box, Button, Select, TextField, Typography, styled } from '@mui/material';
+import { IOperationForm } from 'interfaces/form';
+import { useGetCategoriesQuery } from 'store/rtk/categories';
+import { useToken } from 'hooks/useToken';
 import { addOperationSchema } from '../schemas';
 
 const StyledForm = styled(Box)`
@@ -24,21 +25,9 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
-// const VisuallyHiddenInput = styled('input')({
-//   clip: 'rect(0 0 0 0)',
-//   clipPath: 'inset(50%)',
-//   height: 1,
-//   overflow: 'hidden',
-//   position: 'absolute',
-//   bottom: 0,
-//   left: 0,
-//   whiteSpace: 'nowrap',
-//   width: 1,
-// });
-
 interface IProps {
-  values?: IAddOperationForm;
-  onSubmit: (data: Partial<IAddOperationForm>) => void;
+  values?: IOperation;
+  onSubmit: (data: Partial<IOperationForm>) => void;
   submitError?: string;
   isLoading?: boolean;
 }
@@ -49,9 +38,11 @@ export const AddOperationForm: FC<IProps> = ({ values, submitError, isLoading, o
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: values,
+    defaultValues: { ...values, categoryId: values?.category.id },
     resolver: yupResolver(addOperationSchema),
   });
+  const token = useToken();
+  const { data } = useGetCategoriesQuery({ token });
   const buttonText = values ? 'Редактирование' : 'Создание';
 
   return (
@@ -85,25 +76,24 @@ export const AddOperationForm: FC<IProps> = ({ values, submitError, isLoading, o
         type="text"
         {...register('desc')}
       />
-      <TextField
-        error={!!errors?.category}
-        helperText={errors?.category?.message}
-        label="категория"
-        size="small"
-        type="text"
-        {...register('category')}
-      />
-      <Select size="small" defaultValue={EOperation.Cost} {...register('type')}>
+      {data?.data ? (
+        <Select native size="small" defaultValue={data.data[0].id} {...register('categoryId')}>
+          {data.data.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </Select>
+      ) : (
+        <Typography>Ничего не найдено</Typography>
+      )}
+      <Select native size="small" defaultValue={EOperation.Cost} {...register('type')}>
         {Object.values(EOperation).map((key) => (
-          <MenuItem key={key} value={key}>
+          <option key={key} value={key}>
             {key}
-          </MenuItem>
+          </option>
         ))}
       </Select>
-      {/* <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} {...register('file')}>
-        Upload file
-        <VisuallyHiddenInput type="file" />
-      </Button> */}
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
         {isLoading && '2'} {buttonText}

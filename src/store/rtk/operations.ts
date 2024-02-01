@@ -20,6 +20,11 @@ interface IOperationQuery {
   pageSize: number
 }
 
+interface IDeleteResponse {
+  token?: string;
+  id: string
+}
+
 export const operationsApi = createApi({
   reducerPath: 'operationsApi',
   baseQuery: fetchBaseQuery({
@@ -48,14 +53,44 @@ export const operationsApi = createApi({
           ]
           : [{ type: 'Operations', id: 'LIST' }],
     }),
-    getOperation: builder.query<IOperation, { id: string, token: string | undefined }>({
+
+    getOperation: builder.query<IOperation, { id: string | null, token: string | undefined }>({
       query: ({ id, token }) => ({
         url: `operations/${id}`,
         ...getHeadersWithAuthToken(token)
       }),
-      providesTags: (_result, _error, { id }) => [{ type: 'Operations', id }],
+      providesTags: ["Operations"],
     }),
+
+    addOperation: builder.mutation({
+      query: ({ body, token }) => ({
+        url: "operations",
+        method: 'POST',
+        ...getHeadersWithAuthToken(token),
+        body: { ...body, date: new Date().toISOString() }
+      }),
+      invalidatesTags: ['Operations']
+    }),
+
+    updateOperation: builder.mutation({
+      query: ({ body, id, token }) => ({
+        url: `operations/${id}`,
+        method: 'PUT',
+        ...getHeadersWithAuthToken(token),
+        body
+      }),
+      invalidatesTags: ['Operations']
+    }),
+
+    deleteOperation: builder.mutation<IOperation, IDeleteResponse>({
+      query: ({ id, token }) => ({
+        url: `operations/${id}`,
+        method: "DELETE",
+        ...getHeadersWithAuthToken(token),
+      }),
+      invalidatesTags: ['Operations']
+    })
   }),
 });
 
-export const { useGetOperationsQuery, useGetOperationQuery } = operationsApi;
+export const { useGetOperationsQuery, useGetOperationQuery, useAddOperationMutation, useDeleteOperationMutation, useUpdateOperationMutation } = operationsApi;

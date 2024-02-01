@@ -35,14 +35,16 @@ export const CategoryCard: FC<IProps> = ({ category, onChangeClick }) => {
   return (
     <StyledBox>
       <Typography variant="body2">{name}</Typography>
-      <StyledButtonContainer>
-        <Button onClick={(e) => onChangeClick(e, id)} size="small" variant="outlined">
-          Изменить
-        </Button>
-        <Button onClick={handleClickDelete} size="small" variant="outlined" color="error">
-          Удалить
-        </Button>
-      </StyledButtonContainer>
+      {token && (
+        <StyledButtonContainer>
+          <Button onClick={(e) => onChangeClick(e, id)} size="small" variant="outlined">
+            Изменить
+          </Button>
+          <Button onClick={handleClickDelete} size="small" variant="outlined" color="error">
+            Удалить
+          </Button>
+        </StyledButtonContainer>
+      )}
     </StyledBox>
   );
 };

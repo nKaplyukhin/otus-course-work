@@ -14,13 +14,12 @@ export interface IChangePasswordForm {
   newPassword: string;
 }
 
-export interface IAddOperationForm {
+export interface IOperationForm {
   amount: number;
   name: string;
-  desc: string;
-  category: string;
+  desc?: string;
+  categoryId: string;
   type: EOperation;
-  file: FileList;
 }
 
 export interface ICategoryForm {

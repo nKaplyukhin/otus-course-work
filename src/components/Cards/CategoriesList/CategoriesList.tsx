@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { useCategoriesList } from './hooks/useCategoriesList';
 import { CategoryCard } from '../CategoryCard';
+import { ScrollRestoration } from 'react-router-dom';
 
 interface IProps {
   onChangeClick: (e: SyntheticEvent<HTMLElement, Event>, id: string) => void;
@@ -37,7 +38,7 @@ export const CategoriesList: FC<IProps> = ({ onChangeClick }) => {
       {data && data?.data.length ? (
         <>
           {data.data.map((item, index) => (
-            <CategoryCard key={index} category={item} onChangeClick={onChangeClick}/>
+            <CategoryCard key={index} category={item} onChangeClick={onChangeClick} />
           ))}
           <Box ref={containerRef} />
         </>

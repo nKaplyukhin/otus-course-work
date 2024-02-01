@@ -3,7 +3,6 @@ import { CategoryForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { useAddCategoryMutation, useGetCategoryQuery, useUpdateCategoryMutation } from 'store/rtk/categories';
 import { ICategoryForm } from 'interfaces/form';
-import { UseFormReset } from 'react-hook-form';
 import { useToken } from 'hooks/useToken';
 import { Typography } from '@mui/material';
 

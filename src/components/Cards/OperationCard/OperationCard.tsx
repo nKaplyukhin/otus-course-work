@@ -2,6 +2,7 @@ import React, { FC, SyntheticEvent } from 'react';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';
+import { useToken } from 'hooks/useToken';
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -21,6 +22,7 @@ interface IProps {
 export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
   const { category, name, desc, amount, type } = operation;
   const navigate = useNavigate();
+  const token = useToken();
 
   const handleBackClick = () => {
     navigate('/');
@@ -49,12 +51,16 @@ export const OperationCard: FC<IProps> = ({ operation, onChangeClick }) => {
         <Button variant="outlined" onClick={handleBackClick} size="small">
           Назад
         </Button>
-        <Button onClick={onChangeClick} variant="contained" size="small">
-          Изменить
-        </Button>
-        <Button variant="contained" color="error" size="small">
-          Удалить
-        </Button>
+        {token && (
+          <>
+            <Button onClick={onChangeClick} variant="contained" size="small">
+              Изменить
+            </Button>
+            <Button variant="contained" color="error" size="small">
+              Удалить
+            </Button>
+          </>
+        )}
       </StyledCardActions>
     </Card>
   );

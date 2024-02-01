@@ -3,9 +3,8 @@ import { Box, Typography, styled } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { OperationCard } from 'components/Cards';
 import { useGetOperationQuery } from 'store/rtk/operations';
-import { selectTokenData } from 'store/tokenSlice';
-import { useAppSelector } from 'store/hooks';
 import { useModalController } from 'hooks/useModalController';
+import { useToken } from 'hooks/useToken';
 import { CardModal } from './CardModal';
 
 const StyledBox = styled(Box)`
@@ -25,7 +24,7 @@ export const Card = () => {
     data && (
       <StyledBox>
         <OperationCard operation={data} onChangeClick={handleOpen} />
-        <CardModal isOpen={isOpen} closeModal={handleClose} />
+        {isOpen && <CardModal closeModal={handleClose} data={data} />}
       </StyledBox>
     )
   );
