@@ -1,7 +1,7 @@
 import React from 'react';
 import { CssBaseline } from '@mui/material';
 import { Layout } from 'components/Layout';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import { Navigation } from 'components/Navigation/Navigation';
@@ -14,11 +14,11 @@ export const App = () => (
       <ThemeProvider>
         <CssBaseline />
         <GlobalStyles />
-        <BrowserRouter>
+        <HashRouter>
           <Layout>
             <Navigation />
           </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

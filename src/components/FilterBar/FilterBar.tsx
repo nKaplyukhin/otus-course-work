@@ -35,18 +35,16 @@ export const FilterBar: FC<IProps> = ({ onAddClick, onChangeSorting }) => {
       )}
       <FormControl>
         <FormLabel>Направление сортировки</FormLabel>
-        <RadioGroup
-          onChange={(e) => onChangeSorting('type', e.target.value as ESortingType)}
-          defaultValue={ESortingType.ASC}
-        >
-          <FormControlLabel value={ESortingType.ASC} control={<Radio />} label="По Возрастанию" />
-          <FormControlLabel value={ESortingType.DESC} control={<Radio />} label="По убыванию" />
+        <RadioGroup onChange={(e) => onChangeSorting('type', e.target.value as ESortingType)} defaultValue="ASC">
+          {Object.keys(ESortingType).map((key) => (
+            <FormControlLabel value={key} control={<Radio />} label={ESortingType[key]} />
+          ))}
         </RadioGroup>
       </FormControl>
       <Select
         onChange={(e) => onChangeSorting('field', e.target.value as ESortingField)}
         size="small"
-        defaultValue={ESortingField.id}
+        defaultValue="id"
       >
         {Object.keys(ESortingField).map((key) => (
           <MenuItem key={key} value={key}>

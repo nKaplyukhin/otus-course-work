@@ -1,6 +1,6 @@
 export enum ESortingType {
-  ASC = "ASC",
-  DESC = "DESC",
+  ASC = "По возрастанию",
+  DESC = "По убыванию",
 }
 
 export enum ESortingField {
