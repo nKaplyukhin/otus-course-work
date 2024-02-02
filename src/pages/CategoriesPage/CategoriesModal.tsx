@@ -4,7 +4,7 @@ import { Modal } from 'components/Modal';
 import { useAddCategoryMutation, useGetCategoryQuery, useUpdateCategoryMutation } from 'store/rtk/categories';
 import { ICategoryForm } from 'interfaces/form';
 import { useToken } from 'hooks/useToken';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 
 interface IProps {
   closeModal: () => void;
@@ -23,7 +23,7 @@ const CategoryModalWithId: FC<ICategoryModalWithId> = ({ closeModal, id, token }
   const [updateCategory] = useUpdateCategoryMutation();
 
   if (isLoading) {
-    return <Typography>Loading</Typography>;
+    return <CircularProgress size={100} />;
   }
 
   const onSubmit = async (data: Partial<ICategoryForm>) => {

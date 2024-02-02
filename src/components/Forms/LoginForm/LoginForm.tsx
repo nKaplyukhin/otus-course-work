@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Button, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, CircularProgress, TextField, Typography, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ILoginForm } from 'interfaces/form';
@@ -60,7 +60,7 @@ export const LoginForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
       />
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-        {isLoading && '2'} Войти
+      {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />}  Войти
       </Button>
     </StyledForm>
   );

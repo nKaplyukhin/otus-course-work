@@ -1,5 +1,5 @@
 import React, { FC, SyntheticEvent, useEffect } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { useToken } from 'hooks/useToken';
 import { useGetCategoriesQuery } from 'store/rtk/categories';
@@ -30,7 +30,7 @@ export const CategoriesList: FC<IProps> = ({ onChangeClick, sorting }) => {
   }, [isVisible]);
 
   if (isLoading) {
-    return <Typography>Loading...</Typography>;
+    return <CircularProgress size={100} />;
   }
 
   if (!isSuccess) {

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EOperation, IOperation } from 'interfaces/operation';
-import { Box, Button, Select, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, CircularProgress, Select, TextField, Typography, styled } from '@mui/material';
 import { IOperationForm } from 'interfaces/form';
 import { useGetCategoriesQuery } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
@@ -96,7 +96,7 @@ export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSu
       </Select>
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-        {isLoading && '2'} {buttonText}
+      {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />}  {buttonText}
       </Button>
     </StyledForm>
   );

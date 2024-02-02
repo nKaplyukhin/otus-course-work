@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ICategoryForm } from 'interfaces/form';
-import { Box, Button, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, CircularProgress, TextField, Typography, styled } from '@mui/material';
 import { categorySchema } from '../schemas';
 
 const StyledForm = styled(Box)`
@@ -63,7 +63,7 @@ export const CategoryForm: FC<IProps> = ({ values, submitError, isLoading, onSub
       />
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-        {isLoading && '2'} {buttonText}
+        {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />} {buttonText}
       </Button>
     </StyledForm>
   );

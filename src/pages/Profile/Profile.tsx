@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useModalController } from 'hooks/useModalController';
 import React from 'react';
 import { useGetProfileQuery } from 'store/rtk/profile';
@@ -27,7 +27,7 @@ export const Profile = () => {
   } = useModalController();
 
   if (isLoading) {
-    return <Typography>Loading...</Typography>;
+    return <CircularProgress size={100} />;
   }
 
   if (!isSuccess) {

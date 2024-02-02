@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, styled } from '@mui/material';
+import { Box, CircularProgress, Typography, styled } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { OperationCard } from 'components/Cards';
 import { useDeleteOperationMutation, useGetOperationQuery } from 'store/rtk/operations';
@@ -20,7 +20,9 @@ export const Card = () => {
   const [deleteOperation] = useDeleteOperationMutation();
   const navigate = useNavigate();
 
-  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isLoading) {
+    return <CircularProgress size={100} />;
+  }
 
   if (!isSuccess) {
     return <Typography>Произошла ошибка</Typography>;

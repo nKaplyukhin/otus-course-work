@@ -5,15 +5,15 @@ declare module '@mui/material/styles' {
     colors: {
       background: string;
       text: string;
-      backgroundHover?: string;
+      loader: string
     };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     colors?: {
       background?: string;
-      backgroundHover?: string;
       text?: string;
+      loader?: string
     };
   }
 }
@@ -48,19 +48,25 @@ export const darkTheme = createTheme({
           background: '#333',
         }
       }
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          background: '#333',
+          color: "#fff"
+        }
+      }
     }
   },
   colors: {
     text: '#fff',
     background: '#333',
-    backgroundHover: '#555',
   },
 });
 
 export const lightTheme = createTheme({
   colors: {
     background: '#fff',
-    backgroundHover: '#ddd',
     text: '#333',
   },
 });

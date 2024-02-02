@@ -20,7 +20,7 @@ const StyledCardContent = styled(CardContent)`
   grid-template-columns: 20% 50% 30%;
 `;
 
-const Amount = styled(Typography)<{ color: string }>`
+const Amount = styled(Typography)`
   text-align: right;
   font-weight: bold;
 `;

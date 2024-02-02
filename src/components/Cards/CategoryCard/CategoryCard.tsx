@@ -9,12 +9,14 @@ const StyledBox = styled(Paper)`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const StyledButtonContainer = styled(Paper)`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 interface IProps {

@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { useToken } from 'hooks/useToken';
 import { useGetOperationsQuery } from 'store/rtk/operations';
@@ -28,7 +28,7 @@ export const OperationsList: FC<IProps> = ({ sorting }) => {
   }, [isVisible]);
 
   if (isLoading) {
-    return <Typography>Loading...</Typography>;
+    return <CircularProgress size={100} />;
   }
 
   return (
