@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton, Tooltip, styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from 'store/tokenSlice';
 
 import LoginIcon from '@mui/icons-material/Login';
@@ -16,6 +16,7 @@ export const LoginButtton = () => {
   const navigate = useNavigate();
   const token = useToken();
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   return token ? (
     <Tooltip title="Выйти">
@@ -29,7 +30,15 @@ export const LoginButtton = () => {
     </Tooltip>
   ) : (
     <Tooltip title="Войти">
-      <StyledIcon onClick={() => navigate('/auth')}>
+      <StyledIcon
+        onClick={() =>
+          navigate('/auth', {
+            state: {
+              from: location,
+            },
+          })
+        }
+      >
         <LoginIcon />
       </StyledIcon>
     </Tooltip>
