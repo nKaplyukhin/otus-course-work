@@ -5,6 +5,7 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import { Navigation } from 'components/Navigation/Navigation';
+import { GoTopButton } from 'components/Buttons/GoTopButton';
 import { ThemeProvider } from './theme/ThemeProvider';
 import { GlobalStyles } from './GlobalStyles';
 
@@ -19,6 +20,7 @@ export const App = () => (
             <Navigation />
           </Layout>
         </HashRouter>
+        <GoTopButton />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>
