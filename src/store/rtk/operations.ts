@@ -14,7 +14,6 @@ interface IResponse {
 
 interface IOperationQuery {
   token?: string;
-  pageSize: number,
   sorting?: ISorting;
 }
 
@@ -31,11 +30,8 @@ export const operationsApi = createApi({
   tagTypes: ["Operations"],
   endpoints: (builder) => ({
     getOperations: builder.query<IResponse, IOperationQuery>({
-      query: ({ pageSize, sorting, token }) => {
+      query: ({ sorting, token }) => {
         const params = {
-          pagination: JSON.stringify({
-            pageSize,
-          }),
           sorting: JSON.stringify(sorting)
         }
         return {

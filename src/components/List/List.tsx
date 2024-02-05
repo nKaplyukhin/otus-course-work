@@ -1,17 +1,16 @@
-import React, { FC, SyntheticEvent, useEffect } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { usePageSize } from 'hooks/usePageSize';
-import { ICategory } from 'interfaces/category';
-import { CategoryCard } from '../CategoryCard';
+import React, { PropsWithChildren, ReactElement, useEffect } from 'react';
 
 interface IProps {
-  onChangeClick: (e: SyntheticEvent<HTMLElement, Event>, id: string) => void;
-  data: Array<ICategory>;
+  isLoading: boolean;
+  data: Array<any>;
   total: number;
+  RenderItem: ReactElement;
 }
 
-export const CategoriesList: FC<IProps> = ({ onChangeClick, data, total }) => {
+export const List: FC<PropsWithChildren<>> = ({ isLoading, data, total, RenderItem }: IProps) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',
@@ -26,14 +25,17 @@ export const CategoriesList: FC<IProps> = ({ onChangeClick, data, total }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
-  const pagingData = data.slice(0, pageSize);
+  if (isLoading) {
+    return <CircularProgress size={100} />;
+  }
+  const pagingData = data.slice(pageSize - 1);
 
   return (
     <Stack spacing={2}>
-      {pagingData.length ? (
+      {pagingData && pagingData.length ? (
         <>
           {pagingData.map((item, index) => (
-            <CategoryCard key={index} category={item} onChangeClick={onChangeClick} />
+            <RenderItem key={index} operation={item} />
           ))}
           <Box ref={containerRef} />
         </>

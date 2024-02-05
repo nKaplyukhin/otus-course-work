@@ -14,7 +14,6 @@ interface IResponse {
 
 interface ICategoryQuery {
   token?: string;
-  pageSize?: number;
   sorting?: ISorting;
 }
 
@@ -32,11 +31,8 @@ export const categoriesApi = createApi({
   tagTypes: ["Categories"],
   endpoints: (builder) => ({
     getCategories: builder.query<IResponse, ICategoryQuery>({
-      query: ({ pageSize, token, sorting }) => {
+      query: ({ token, sorting }) => {
         const params = {
-          pagination: JSON.stringify({
-            pageSize,
-          }),
           sorting: JSON.stringify(sorting)
         }
         return {

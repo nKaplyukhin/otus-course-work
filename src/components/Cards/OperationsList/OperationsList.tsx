@@ -1,41 +1,36 @@
 import React, { FC, useEffect } from 'react';
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
-import { useToken } from 'hooks/useToken';
-import { useGetOperationsQuery } from 'store/rtk/operations';
 import { usePageSize } from 'hooks/usePageSize';
-import { ISorting } from 'interfaces/sorting';
+import { IOperation } from 'interfaces/operation';
 import { ShortOperationCard } from '../ShortOperationCard';
 
 interface IProps {
-  sorting: ISorting;
+  data: Array<IOperation>;
+  total: number;
 }
-export const OperationsList: FC<IProps> = ({ sorting }) => {
+export const OperationsList: FC<IProps> = ({ data, total }) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',
     threshold: 0,
   });
-  const token = useToken();
   const { pageSize, updatePage } = usePageSize();
-  const { isLoading, data } = useGetOperationsQuery({ pageSize, token, sorting });
 
   useEffect(() => {
     if (isVisible) {
-      updatePage(data?.pagination.total);
+      updatePage(total);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
-  if (isLoading) {
-    return <CircularProgress size={100} />;
-  }
+  const pagingData = data.slice(0, pageSize);
 
   return (
     <Stack spacing={2}>
-      {data && data?.data.length ? (
+      {pagingData.length ? (
         <>
-          {data.data.map((item, index) => (
+          {pagingData.map((item, index) => (
             <ShortOperationCard key={index} operation={item} />
           ))}
           <Box ref={containerRef} />

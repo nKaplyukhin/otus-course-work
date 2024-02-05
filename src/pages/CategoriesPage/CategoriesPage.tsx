@@ -1,9 +1,11 @@
-import { Box, styled } from '@mui/material';
+import { Box, CircularProgress, Typography, styled } from '@mui/material';
 import { CategoriesList } from 'components/Cards/CategoriesList';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { useSorting } from 'hooks/useSorting';
+import { useGetCategoriesQuery } from 'store/rtk/categories';
+import { useToken } from 'hooks/useToken';
 import { CategoriesModal } from './CategoriesModal';
 
 const StyledBox = styled(Box)`
@@ -15,6 +17,9 @@ export const CategoriesPage = () => {
   const { isOpen, handleClose, handleOpen } = useModalController();
   const [id, setId] = useState<string | null>(null);
   const [sorting, changeSorting] = useSorting();
+  const token = useToken();
+
+  const { isLoading, data, isSuccess } = useGetCategoriesQuery({ token, sorting });
 
   const onChangeClick = useCallback(
     (e: SyntheticEvent<HTMLElement, Event>, id: string) => {
@@ -29,10 +34,18 @@ export const CategoriesPage = () => {
     handleOpen(e);
   };
 
+  if (isLoading) {
+    return <CircularProgress size={100} />;
+  }
+
+  if (!isSuccess) {
+    return <Typography>Произошла ошибка</Typography>;
+  }
+
   return (
     <StyledBox>
       <FilterBar onChangeSorting={changeSorting} onAddClick={onOpenClick} />
-      <CategoriesList onChangeClick={onChangeClick} sorting={sorting} />
+      <CategoriesList data={data.data} onChangeClick={onChangeClick} total={data.pagination.total} />
       {isOpen && <CategoriesModal id={id} closeModal={handleClose} />}
     </StyledBox>
   );

@@ -33,25 +33,30 @@ export const FilterBar: FC<IProps> = ({ onAddClick, onChangeSorting }) => {
           Добавить
         </Button>
       )}
-      <FormControl>
-        <FormLabel>Направление сортировки</FormLabel>
-        <RadioGroup onChange={(e) => onChangeSorting('type', e.target.value as ESortingType)} defaultValue="ASC">
-          {Object.keys(ESortingType).map((key) => (
-            <FormControlLabel key={key} value={key} control={<Radio />} label={ESortingType[key]} />
-          ))}
-        </RadioGroup>
-      </FormControl>
-      <Select
-        onChange={(e) => onChangeSorting('field', e.target.value as ESortingField)}
-        size="small"
-        defaultValue="id"
-      >
-        {Object.keys(ESortingField).map((key) => (
-          <MenuItem key={key} value={key}>
-            {ESortingField[key]}
-          </MenuItem>
-        ))}
-      </Select>
+      {!!onChangeSorting && (
+        <>
+          <FormControl>
+            <FormLabel>Направление сортировки</FormLabel>
+            <RadioGroup onChange={(e) => onChangeSorting('type', e.target.value as ESortingType)} defaultValue="ASC">
+              {Object.keys(ESortingType).map((key) => (
+                <FormControlLabel key={key} value={key} control={<Radio />} label={ESortingType[key]} />
+              ))}
+            </RadioGroup>
+          </FormControl>
+          <Select
+            onChange={(e) => onChangeSorting('field', e.target.value as ESortingField)}
+            size="small"
+            defaultValue="id"
+          >
+            {Object.keys(ESortingField).map((key) => (
+              <MenuItem key={key} value={key}>
+                {ESortingField[key]}
+              </MenuItem>
+            ))}
+          </Select>
+        </>
+      )}
+      
     </StyledBox>
   );
 };
