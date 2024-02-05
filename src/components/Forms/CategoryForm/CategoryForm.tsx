@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ICategoryForm } from 'interfaces/form';
@@ -29,7 +29,7 @@ interface IProps {
   isLoading?: boolean;
 }
 
-export const CategoryForm: FC<IProps> = ({ values, submitError, isLoading, onSubmit }) => {
+export const CategoryForm = ({ values, submitError, isLoading, onSubmit }: IProps) => {
   const {
     register,
     formState: { errors },

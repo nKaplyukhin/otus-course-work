@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 const StyledBox = styled(Box)`
   max-width: 1400px;
@@ -7,4 +7,4 @@ const StyledBox = styled(Box)`
   margin: 0 auto;
 `;
 
-export const Container: FC<PropsWithChildren> = ({ children }) => <StyledBox>{children}</StyledBox>;
+export const Container = ({ children }: PropsWithChildren) => <StyledBox>{children}</StyledBox>;

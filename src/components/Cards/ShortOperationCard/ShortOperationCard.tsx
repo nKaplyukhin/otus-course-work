@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 import { Box, Button, Card, CardActions, CardContent, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';

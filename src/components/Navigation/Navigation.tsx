@@ -21,7 +21,6 @@ export const Navigation = () => {
       />
       <Route path="/category">
         <Route index Component={CategoriesPage} />
-        <Route path=":id" Component={Card} />
       </Route>
       <Route path="/main">
         <Route index Component={Main} />

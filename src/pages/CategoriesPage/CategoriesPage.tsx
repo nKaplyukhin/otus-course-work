@@ -14,10 +14,10 @@ const StyledBox = styled(Box)`
 `;
 
 export const CategoriesPage = () => {
-  const { isOpen, handleClose, handleOpen } = useModalController();
   const [id, setId] = useState<string | null>(null);
   const [sorting, changeSorting] = useSorting();
   const token = useToken();
+  const { isOpen, handleClose, handleOpen } = useModalController();
 
   const { isLoading, data, isSuccess } = useGetCategoriesQuery({ token, sorting });
 

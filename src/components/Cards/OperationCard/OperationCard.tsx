@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, styled } from '@mui/material';
 import { EOperation, IOperation } from 'interfaces/operation';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ interface IProps {
   onDeleteClick: () => void;
 }
 
-export const OperationCard: FC<IProps> = ({ operation, onChangeClick, onDeleteClick }) => {
+export const OperationCard = ({ operation, onChangeClick, onDeleteClick }: IProps) => {
   const { category, name, desc, amount, type, createdAt } = operation;
   const navigate = useNavigate();
   const token = useToken();

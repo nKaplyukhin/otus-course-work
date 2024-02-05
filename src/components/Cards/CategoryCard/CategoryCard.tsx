@@ -3,6 +3,8 @@ import { Button, Paper, Typography, styled } from '@mui/material';
 import { ICategory } from 'interfaces/category';
 import { useDeleteCategoryMutation } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
+import { NavLink } from 'react-router-dom';
+import { addDefaults } from 'utils/other';
 
 const StyledBox = styled(Paper)`
   display: flex;
@@ -30,24 +32,27 @@ export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
 
   const { name, id } = category;
 
-  const handleClickDelete = () => {
+  const handleClickDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    addDefaults(e);
     deleteCategory({ id, token });
   };
 
   return (
-    <StyledBox>
-      <Typography variant="body2">{name}</Typography>
-      {token && (
-        <StyledButtonContainer>
-          <Button onClick={(e) => onChangeClick(e, id)} size="small" variant="outlined">
-            Изменить
-          </Button>
-          <Button onClick={handleClickDelete} size="small" variant="outlined" color="error">
-            Удалить
-          </Button>
-        </StyledButtonContainer>
-      )}
-    </StyledBox>
+    <NavLink to={`/main?category=${id}`}>
+      <StyledBox>
+        <Typography variant="body2">{name}</Typography>
+        {token && (
+          <StyledButtonContainer>
+            <Button onClick={(e) => onChangeClick(e, id)} size="small" variant="outlined">
+              Изменить
+            </Button>
+            <Button onClick={handleClickDelete} size="small" variant="outlined" color="error">
+              Удалить
+            </Button>
+          </StyledButtonContainer>
+        )}
+      </StyledBox>
+    </NavLink>
   );
 });
 

@@ -5,18 +5,18 @@
     "airbnb",
     "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
   ],
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
   },
   "settings": {
     "import/resolver": {
       "node": {
         "paths": ["."],
-        "extensions": [".ts", ".tsx"]
-      }
-    }
+        "extensions": [".ts", ".tsx"],
+      },
+    },
   },
   "globals": {
     "document": true,
@@ -25,12 +25,12 @@
     "fetch": true,
     "requestAnimationFrame": true,
     "cancelAnimationFrame": true,
-    "window": true
+    "window": true,
   },
   "rules": {
     "@typescript-eslint/no-unused-vars": [
       "warn",
-      { "ignoreRestSiblings": true, "caughtErrors": "none", "args": "after-used" }
+      { "ignoreRestSiblings": true, "caughtErrors": "none", "args": "after-used" },
     ],
     "no-shadow": "off",
     "@typescript-eslint/no-var-requires": 0,
@@ -48,6 +48,6 @@
     "react/jsx-props-no-spreading": 0,
     "no-plusplus": 0,
     "react/require-default-props": 0,
-    "react/jsx-filename-extension": 0
-  }
+    "react/jsx-filename-extension": 0,
+  },
 }

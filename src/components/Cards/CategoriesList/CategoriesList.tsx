@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useEffect } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { usePageSize } from 'hooks/usePageSize';
@@ -11,7 +11,7 @@ interface IProps {
   total: number;
 }
 
-export const CategoriesList: FC<IProps> = ({ onChangeClick, data, total }) => {
+export const CategoriesList = ({ onChangeClick, data, total }: IProps) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',

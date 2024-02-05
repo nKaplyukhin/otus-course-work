@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Header } from 'components/Header';
 import { Box, styled } from '@mui/material';
 import { Container } from 'components/Container';
@@ -14,7 +14,7 @@ const PaddingContainer = styled(Box)`
   padding: 20px 0;
 `;
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => (
+export const Layout = ({ children }: PropsWithChildren) => (
   <LayoutContainer>
     <Header />
     <PaddingContainer>

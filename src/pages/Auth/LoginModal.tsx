@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { LoginForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { signin } from 'store/tokenSlice';
@@ -10,7 +10,7 @@ interface IProps {
   closeModal: () => void;
 }
 
-export const LoginModal: FC<IProps> = ({ closeModal }) => {
+export const LoginModal = ({ closeModal }: IProps) => {
   const { loading, signinError: error, dispatchData } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

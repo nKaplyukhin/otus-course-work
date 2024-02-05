@@ -1,8 +1,8 @@
 import { useToken } from 'hooks/useToken';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
+export const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const location = useLocation();
   const token = useToken();
 

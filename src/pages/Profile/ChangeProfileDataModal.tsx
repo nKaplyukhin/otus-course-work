@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Modal } from 'components/Modal';
 import { useChangeProfileDataMutation } from 'store/rtk/profile';
 import { ValidationErrorsResponse } from 'interfaces/store';
@@ -11,7 +11,7 @@ interface IProps {
   profileData: IProfileData;
 }
 
-export const ChangeProfileDataModal: FC<IProps> = ({ closeModal, profileData }) => {
+export const ChangeProfileDataModal = ({ closeModal, profileData }: IProps) => {
   const [changeData, { error }] = useChangeProfileDataMutation();
 
   const onSubmit = async (data: IChangeDataForm) => {

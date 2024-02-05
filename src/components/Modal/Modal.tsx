@@ -1,5 +1,5 @@
 import { Box, ClickAwayListener, IconButton, Paper, styled } from '@mui/material';
-import React, { FC, PropsWithChildren, useRef } from 'react';
+import React, { PropsWithChildren, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -36,7 +36,7 @@ const StyledButton = styled(IconButton)`
 interface IProps {
   onClose: () => void;
 }
-export const Modal: FC<PropsWithChildren<IProps>> = ({ onClose, children }) => {
+export const Modal = ({ onClose, children }: PropsWithChildren<IProps>) => {
   const ref = useRef<HTMLDivElement>(null);
 
   return createPortal(

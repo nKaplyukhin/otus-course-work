@@ -14,7 +14,7 @@ export const ThemeContext = React.createContext<IThemeContext>({} as IThemeConte
 
 export const useThemeContext = (): IThemeContext => useContext(ThemeContext);
 
-export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<ETheme>(() => (localStorage.getItem(KEY) as ETheme) || ETheme.light);
 
   useInsertionEffect(() => {

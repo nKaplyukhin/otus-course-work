@@ -5,6 +5,7 @@ export enum EOperation {
   Profit = 'Profit',
 }
 
+
 export interface IOperation {
   id: string;
   createdAt: string;

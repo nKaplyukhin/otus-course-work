@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Box, Button, CircularProgress, TextField, Typography, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,7 +31,7 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
-export const ChangeProfileDataForm: FC<IProps> = ({ onSubmit, submitError, isLoading, profileData }) => {
+export const ChangeProfileDataForm = ({ onSubmit, submitError, isLoading, profileData }: IProps) => {
   const {
     register,
     formState: { errors },
@@ -54,7 +54,7 @@ export const ChangeProfileDataForm: FC<IProps> = ({ onSubmit, submitError, isLoa
       />
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-      {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />}  Изменить
+        {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />} Изменить
       </Button>
     </StyledForm>
   );

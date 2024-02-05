@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EOperation, IOperation } from 'interfaces/operation';
@@ -6,6 +6,7 @@ import { Box, Button, CircularProgress, Select, TextField, Typography, styled } 
 import { IOperationForm } from 'interfaces/form';
 import { useGetCategoriesQuery } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
+import { NavLink } from 'react-router-dom';
 import { addOperationSchema } from '../schemas';
 
 const StyledForm = styled(Box)`
@@ -25,6 +26,10 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
+const StyledLink = styled(NavLink)`
+  text-decoration: underline;
+`;
+
 interface IProps {
   values?: IOperation;
   onSubmit: (data: Partial<IOperationForm>) => void;
@@ -32,17 +37,17 @@ interface IProps {
   isLoading?: boolean;
 }
 
-export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSubmit }) => {
+export const OperationForm = ({ values, submitError, isLoading, onSubmit }: IProps) => {
+  const token = useToken();
+  const { data } = useGetCategoriesQuery({ token });
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: { ...values, categoryId: values?.category.id },
+    defaultValues: { ...values, categoryId: values?.category?.id },
     resolver: yupResolver(addOperationSchema),
   });
-  const token = useToken();
-  const { data } = useGetCategoriesQuery({ token });
   const buttonText = values ? 'Редактирование' : 'Создание';
 
   return (
@@ -76,7 +81,7 @@ export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSu
         type="text"
         {...register('desc')}
       />
-      {data?.data ? (
+      {data?.data.length ? (
         <Select native size="small" defaultValue={data.data[0].id} {...register('categoryId')}>
           {data.data.map((item) => (
             <option key={item.id} value={item.id}>
@@ -85,7 +90,9 @@ export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSu
           ))}
         </Select>
       ) : (
-        <Typography>Ничего не найдено</Typography>
+        <Typography>
+          Ничего не найдено, создать <StyledLink to="/category">категорию</StyledLink>?
+        </Typography>
       )}
       <Select native size="small" defaultValue={EOperation.Cost} {...register('type')}>
         {Object.values(EOperation).map((key) => (
@@ -96,7 +103,7 @@ export const OperationForm: FC<IProps> = ({ values, submitError, isLoading, onSu
       </Select>
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
-      {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />}  {buttonText}
+        {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />} {buttonText}
       </Button>
     </StyledForm>
   );

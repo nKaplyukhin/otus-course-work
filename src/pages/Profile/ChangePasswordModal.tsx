@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { ChangePasswordForm } from 'components/Forms/ChangePasswordForm';
 import { Modal } from 'components/Modal';
 import { useChangePasswordMutation } from 'store/rtk/profile';
@@ -9,7 +9,7 @@ interface IProps {
   closeModal: () => void;
 }
 
-export const ChangePasswordModal: FC<IProps> = ({ closeModal }) => {
+export const ChangePasswordModal = ({ closeModal }: IProps) => {
   const [changePassword, { error }] = useChangePasswordMutation();
 
   const onSubmit = async (data: IChangePasswordForm) => {

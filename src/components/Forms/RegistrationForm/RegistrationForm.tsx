@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Box, Button, CircularProgress, TextField, Typography, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,7 +29,7 @@ const ErrorText = styled(Typography)`
   transform: translateX(-50%);
 `;
 
-export const RegistrationForm: FC<IProps> = ({ onSubmit, submitError, isLoading }) => {
+export const RegistrationForm = ({ onSubmit, submitError, isLoading }: IProps) => {
   const {
     register,
     formState: { errors },

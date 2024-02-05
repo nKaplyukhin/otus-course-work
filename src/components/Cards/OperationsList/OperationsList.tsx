@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { useIsVisible } from 'hooks/useIsVisible';
 import { usePageSize } from 'hooks/usePageSize';
@@ -9,7 +9,7 @@ interface IProps {
   data: Array<IOperation>;
   total: number;
 }
-export const OperationsList: FC<IProps> = ({ data, total }) => {
+export const OperationsList = ({ data, total }: IProps) => {
   const { isVisible, containerRef } = useIsVisible({
     root: null,
     rootMargin: '0px',

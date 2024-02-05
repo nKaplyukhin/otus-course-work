@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CategoryForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { useAddCategoryMutation, useGetCategoryQuery, useUpdateCategoryMutation } from 'store/rtk/categories';
@@ -18,7 +18,7 @@ interface IPropsWithToken {
 interface ICategoryModalWithId extends IProps, IPropsWithToken {}
 interface IategoryModalWithoutId extends Omit<IProps, 'id'>, IPropsWithToken {}
 
-const CategoryModalWithId: FC<ICategoryModalWithId> = ({ closeModal, id, token }) => {
+const CategoryModalWithId = ({ closeModal, id, token }: ICategoryModalWithId) => {
   const { isLoading, data } = useGetCategoryQuery({ id, token });
   const [updateCategory] = useUpdateCategoryMutation();
 
@@ -44,7 +44,7 @@ const CategoryModalWithId: FC<ICategoryModalWithId> = ({ closeModal, id, token }
   );
 };
 
-const CategoryModalWithoutId: FC<IategoryModalWithoutId> = ({ closeModal, token }) => {
+const CategoryModalWithoutId = ({ closeModal, token }: IategoryModalWithoutId) => {
   const [addCategory] = useAddCategoryMutation();
 
   const onSubmit = async (data: Partial<ICategoryForm>) => {
@@ -64,7 +64,7 @@ const CategoryModalWithoutId: FC<IategoryModalWithoutId> = ({ closeModal, token 
   );
 };
 
-export const CategoriesModal: FC<IProps> = ({ closeModal, id }) => {
+export const CategoriesModal = ({ closeModal, id }: IProps) => {
   const token = useToken();
 
   if (!token) return <Typography>Не автроризован</Typography>;

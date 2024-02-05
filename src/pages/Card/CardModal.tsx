@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { OperationForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { useToken } from 'hooks/useToken';
@@ -11,7 +11,7 @@ interface IProps {
   data?: IOperation;
 }
 
-export const CardModal: FC<IProps> = ({ closeModal, data }) => {
+export const CardModal = ({ closeModal, data }: IProps) => {
   const token = useToken();
 
   const [addOperation] = useAddOperationMutation();

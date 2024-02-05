@@ -15,6 +15,7 @@ const StyledBox = styled(Box)`
 export const Card = () => {
   const { isOpen, handleOpen, handleClose } = useModalController();
   const { id } = useParams();
+
   const token = useToken();
   const { data, isLoading, isSuccess } = useGetOperationQuery({ id: id!, token });
   const [deleteOperation] = useDeleteOperationMutation();

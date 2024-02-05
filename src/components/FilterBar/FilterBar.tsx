@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useToken } from 'hooks/useToken';
 import { ESortingField, ESortingType, ISorting } from 'interfaces/sorting';
-import React, { FC } from 'react';
+import React from 'react';
 
 const StyledBox = styled(Box)`
   display: flex;
@@ -23,8 +23,10 @@ const StyledBox = styled(Box)`
 interface IProps {
   onAddClick: (e: unknown) => void;
   onChangeSorting: (type: keyof ISorting, data: ESortingField | ESortingType) => void;
+  other?: React.JSX.Element;
 }
-export const FilterBar: FC<IProps> = ({ onAddClick, onChangeSorting }) => {
+
+export const FilterBar = ({ onAddClick, onChangeSorting, other }: IProps) => {
   const token = useToken();
   return (
     <StyledBox>
@@ -56,7 +58,7 @@ export const FilterBar: FC<IProps> = ({ onAddClick, onChangeSorting }) => {
           </Select>
         </>
       )}
-      
+      {other}
     </StyledBox>
   );
 };

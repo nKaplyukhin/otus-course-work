@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { RegistrationForm } from 'components/Forms';
 import { Modal } from 'components/Modal';
 import { signup } from 'store/tokenSlice';
@@ -9,7 +9,7 @@ import { useAuth } from './hooks/useAuth';
 interface IProps {
   closeModal: () => void;
 }
-export const RegistrationModal: FC<IProps> = ({ closeModal }) => {
+export const RegistrationModal = ({ closeModal }: IProps) => {
   const { loading, signupError: error, dispatchData } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
