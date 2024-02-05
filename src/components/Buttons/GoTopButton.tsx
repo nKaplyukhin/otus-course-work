@@ -10,7 +10,7 @@ const StyledButton = styled(IconButton)`
   font-size: 50px;
 `;
 
-const SHOW_BUTTON_SCROLL_SIZE = 500;
+const SHOW_BUTTON_SCROLL_SIZE = 1000;
 
 export const GoTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
