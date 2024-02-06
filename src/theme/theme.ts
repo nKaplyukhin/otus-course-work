@@ -56,6 +56,13 @@ export const darkTheme = createTheme({
           color: "#fff"
         }
       }
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: "#fff"
+        }
+      }
     }
   },
   colors: {

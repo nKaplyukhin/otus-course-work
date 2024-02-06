@@ -1,40 +1,46 @@
-import { EOperation, IOperation } from 'interfaces/operation';
+import { EOperation, IOperation } from "interfaces/operation";
 
-const productNames = ['AMD', 'INTEL', 'NVIDIA', 'ATI', 'MSI'];
+interface IsortedOnTypeOperation extends Record<EOperation, IOperation[]> { }
+interface IsortedOnCategoryOperation extends Record<string, IOperation[]> { }
 
-const productCategories = ['CPU', 'RAM', 'videoСard', 'systemUnit', 'HDD', 'SSD', 'LAN'];
-
-const productPrices = [1000, 2000, 3000, 1500, 2700];
-
-function makeRandomString(length: number) {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+export const getOperationsSortedOnType = (operations: IOperation[]) => {
+  const sortedOperation: IsortedOnTypeOperation = {
+    [EOperation.Cost]: [],
+    [EOperation.Profit]: []
   }
 
-  return text;
+  operations.forEach(operation => {
+    sortedOperation[operation.type].push(operation)
+  })
+
+  return sortedOperation
 }
 
-const getRandomIndex = (length: number) => Math.floor(Math.random() * length);
+export const getOperationsListSortedOnCategory = (operations: IOperation[]) => {
+  const sortedOperation: IsortedOnCategoryOperation = {}
 
-export const createRandomOperation = (createdAt: string): IOperation => {
-  const operationName = productNames[getRandomIndex(productNames.length)];
-  const productCategory = productCategories[getRandomIndex(productCategories.length)];
-  const productPrice = productPrices[getRandomIndex(productPrices.length)];
-  const type = getRandomIndex(2) ? EOperation.Cost : EOperation.Profit;
+  operations.forEach(operation => {
+    const categoryId = operation.category?.id
+    if (sortedOperation[categoryId]) {
+      sortedOperation[categoryId].push(operation)
+      return
+    }
+    sortedOperation[categoryId] = [operation]
+  })
 
-  return {
-    createdAt,
-    type,
-    id: makeRandomString(5),
-    name: operationName,
-    amount: productPrice,
-    desc: `description to ${operationName}`,
-    category: {
-      id: makeRandomString(5),
-      name: productCategory,
-    },
-  };
-};
+  return Object.values(sortedOperation)
+}
+
+export const getSumFromOperations = (operations: IOperation[]) => operations.reduce((acc, operation) => acc + operation.amount, 0)
+
+export const getSortedNamesAndAmountListOfOperations = (operations: IOperation[]) => {
+  const sortedOnTypeOperations = getOperationsListSortedOnCategory(operations)
+
+  const convertedOperations = sortedOnTypeOperations.map(operationsList => ({
+    name: operationsList[0].category?.name || "Неизвестно",
+    value: getSumFromOperations(operationsList)
+  }))
+
+
+  return convertedOperations.sort((a, b) => b.value - a.value)
+}

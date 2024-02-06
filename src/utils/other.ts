@@ -17,3 +17,12 @@ export const getHeadersWithAuthToken = (token: string | undefined) => {
   }
   return {}
 }
+
+
+export const getRandomCOlor = (alpha: number = 1) => {
+  const R = Math.floor(Math.random() * (255 + 1));
+  const G = Math.floor(Math.random() * (255 + 1));
+  const B = Math.floor(Math.random() * (255 + 1));
+
+  return `rgba(${R}, ${G}, ${B}, ${alpha})`
+}

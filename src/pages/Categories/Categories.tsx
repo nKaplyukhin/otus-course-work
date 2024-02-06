@@ -13,7 +13,7 @@ const StyledBox = styled(Box)`
   margin: auto;
 `;
 
-export const CategoriesPage = () => {
+export const Categories = () => {
   const [id, setId] = useState<string | null>(null);
   const [sorting, changeSorting] = useSorting();
   const token = useToken();

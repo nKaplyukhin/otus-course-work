@@ -8,6 +8,10 @@ const mainMenu = [
     text: 'Главная',
   },
   {
+    link: '/total',
+    text: 'Отчет',
+  },
+  {
     link: '/profile',
     text: 'Профиль',
   },
