@@ -1,1 +1,1 @@
-export const PAGE_SIZE_STEP = 5;
+export const PAGE_SIZE_STEP = 10;

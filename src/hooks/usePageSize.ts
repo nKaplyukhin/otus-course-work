@@ -2,9 +2,8 @@ import { PAGE_SIZE_STEP } from "constansts/other";
 import { useCallback, useState } from "react";
 
 
-
 export function usePageSize() {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE_STEP);
 
   const updatePage = useCallback((total: number | undefined) => {
 

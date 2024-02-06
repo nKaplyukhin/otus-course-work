@@ -2,7 +2,6 @@ import { Box, CircularProgress, MenuItem, Select, SelectChangeEvent, Typography,
 import { OperationsList } from 'components/Cards';
 import { FilterBar } from 'components/FilterBar';
 import { useModalController } from 'hooks/useModalController';
-import { useSorting } from 'hooks/useSorting';
 import { EOperation } from 'interfaces/operation';
 import { CardModal } from 'pages/Card/CardModal';
 import React from 'react';
