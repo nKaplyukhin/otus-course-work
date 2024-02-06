@@ -10,15 +10,11 @@ const LayoutContainer = styled(Box)`
   flex-direction: column;
 `;
 
-const PaddingContainer = styled(Box)`
-  padding: 20px 0;
-`;
-
 export const Layout = ({ children }: PropsWithChildren) => (
   <LayoutContainer>
     <Header />
-    <PaddingContainer>
+    <Box sx={{ padding: '20px 0' }}>
       <Container>{children}</Container>
-    </PaddingContainer>
+    </Box>
   </LayoutContainer>
 );

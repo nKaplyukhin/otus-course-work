@@ -35,7 +35,9 @@ export const Total = () => {
           ))}
         </Tabs>
       </Box>
-      <Chart data={getSortedNamesAndAmountListOfOperations(sortedData[type])} />
+      <Box sx={{ p: 2 }}>
+        <Chart data={getSortedNamesAndAmountListOfOperations(sortedData[type])} />
+      </Box>
     </Box>
   );
 };
