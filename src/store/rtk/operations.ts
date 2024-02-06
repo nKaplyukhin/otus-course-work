@@ -40,13 +40,7 @@ export const operationsApi = createApi({
           params,
         }
       },
-      providesTags: (result) =>
-        result
-          ? [
-            ...result.data.map(({ id }) => ({ type: 'Operations' as const, id })),
-            { type: 'Operations', id: 'LIST' },
-          ]
-          : [{ type: 'Operations', id: 'LIST' }],
+      providesTags: ['Operations']
     }),
 
     getOperation: builder.query<IOperation, { id: string | null, token: string | undefined }>({
