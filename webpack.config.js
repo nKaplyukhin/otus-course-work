@@ -11,7 +11,7 @@ const port = 3000;
 const dist = path.join(__dirname, 'dist');
 const src = path.join(__dirname, 'src');
 
-module.exports = (_, args) => ({
+module.exports = (_, { mode }) => ({
   entry: './index.tsx',
   devtool: 'source-map',
   context: src,
@@ -29,8 +29,7 @@ module.exports = (_, args) => ({
   },
   output: {
     path: dist,
-    publicPath:
-      args.mode === 'development' ? `http://localhost:${port}/` : 'https://nkaplyukhin.github.io/otus-course-work',
+    publicPath: mode === 'development' ? `http://localhost:${port}/` : 'https://nkaplyukhin.github.io/otus-course-work',
     filename: `js/[name].js`,
     chunkFilename: `js/[name].js`,
   },
@@ -41,9 +40,9 @@ module.exports = (_, args) => ({
         loader: 'ts-loader',
         options: {
           getCustomTransformers: () => ({
-            before: [args.mode === 'development' && ReactRefreshTypeScript()].filter(Boolean),
+            before: [mode === 'development' && ReactRefreshTypeScript()].filter(Boolean),
           }),
-          transpileOnly: args.mode === 'development',
+          transpileOnly: mode === 'development',
         },
         exclude: /node_modules/,
       },
@@ -62,6 +61,6 @@ module.exports = (_, args) => ({
     new DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
-    args.mode === 'development' && new ReactRefreshWebpackPlugin(),
+    mode === 'development' && new ReactRefreshWebpackPlugin(),
   ],
 });
