@@ -65,12 +65,8 @@ const CategoryModalWithoutId = ({ closeModal, token }: IategoryModalWithoutId) =
       name: data.name,
     };
 
-    console.log(data);
-
     if (data.file?.length && token) {
       const { url } = await uploadImage(data.file, token);
-      console.log(url);
-
       if (url) {
         newData.photo = url;
       }
