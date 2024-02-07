@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export const ChangeProfileDataModal = ({ closeModal, profileData }: IProps) => {
-  const [changeData, { error }] = useChangeProfileDataMutation();
+  const [changeData, { error, isLoading }] = useChangeProfileDataMutation();
 
   const onSubmit = async (data: IChangeDataForm) => {
     const res = await changeData(data);
@@ -24,6 +24,7 @@ export const ChangeProfileDataModal = ({ closeModal, profileData }: IProps) => {
   return (
     <Modal onClose={closeModal}>
       <ChangeProfileDataForm
+        isLoading={isLoading}
         submitError={(error as ValidationErrorsResponse)?.data.errors[0].message}
         profileData={profileData}
         onSubmit={onSubmit}

@@ -3,14 +3,13 @@ import { Box, Button, Card, CardActions, CardContent, Paper, Typography, styled 
 import { ICategory } from 'interfaces/category';
 import { useDeleteCategoryMutation } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addDefaults } from 'utils/other';
 
 const StyledBox = styled(CardContent)`
   display: grid;
   grid-template-columns: 30% 70%;
   grid-gap: 5%;
-  padding: 20px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -32,9 +31,9 @@ export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ maxHeight: 200 }}>
       <StyledBox>
-        <Box>{photo && <img height="100%" src={photo} alt={name} />}</Box>
+        <Box sx={{ maxHeight: 100 }}>{photo && <img src={photo} alt={name} />}</Box>
         <Typography variant="body2">{name}</Typography>
       </StyledBox>
       {token && (

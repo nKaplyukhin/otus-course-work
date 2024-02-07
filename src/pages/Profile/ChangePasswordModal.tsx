@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const ChangePasswordModal = ({ closeModal }: IProps) => {
-  const [changePassword, { error }] = useChangePasswordMutation();
+  const [changePassword, { error, isLoading }] = useChangePasswordMutation();
 
   const onSubmit = async (data: IChangePasswordForm) => {
     const res = await changePassword(data);
@@ -23,6 +23,7 @@ export const ChangePasswordModal = ({ closeModal }: IProps) => {
   return (
     <Modal onClose={closeModal}>
       <ChangePasswordForm
+        isLoading={isLoading}
         submitError={(error as ValidationErrorsResponse)?.data.errors[0].message}
         onSubmit={onSubmit}
       />

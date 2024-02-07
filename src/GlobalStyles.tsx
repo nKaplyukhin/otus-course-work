@@ -11,6 +11,7 @@ export const GlobalStyles = () => (
               'Helvetica Neue', sans-serif`,
         backgroundColor: theme.colors.background,
         color: theme.colors.text,
+        boxSizing: 'border-box',
       },
       ul: {
         padding: 0,
@@ -19,6 +20,11 @@ export const GlobalStyles = () => (
       a: {
         color: theme.colors.text,
         textDecoration: 'none',
+      },
+      img: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
       },
     })}
   />

@@ -14,8 +14,8 @@ interface IProps {
 export const CardModal = ({ closeModal, data }: IProps) => {
   const token = useToken();
 
-  const [addOperation] = useAddOperationMutation();
-  const [updateOperation] = useUpdateOperationMutation();
+  const [addOperation, { error: addError, isLoading: isAddLoading }] = useAddOperationMutation();
+  const [updateOperation, { error: updateError, isLoading: isUpdateLoading }] = useUpdateOperationMutation();
 
   const onSubmit = async (form: Partial<IOperationForm>) => {
     let res = null;
@@ -39,7 +39,12 @@ export const CardModal = ({ closeModal, data }: IProps) => {
 
   return (
     <Modal onClose={closeModal}>
-      <OperationForm onSubmit={onSubmit} values={data} />
+      <OperationForm
+        // submitError={data ? updateError : addError}
+        isLoading={data ? isUpdateLoading : isAddLoading}
+        onSubmit={onSubmit}
+        values={data}
+      />
     </Modal>
   );
 };
