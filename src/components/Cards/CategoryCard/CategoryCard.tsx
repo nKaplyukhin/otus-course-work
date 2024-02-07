@@ -1,24 +1,16 @@
 import React, { SyntheticEvent, memo } from 'react';
-import { Button, Paper, Typography, styled } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Paper, Typography, styled } from '@mui/material';
 import { ICategory } from 'interfaces/category';
 import { useDeleteCategoryMutation } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { addDefaults } from 'utils/other';
-import { Image } from '@mui/icons-material';
 
-const StyledBox = styled(Paper)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const StyledBox = styled(CardContent)`
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-gap: 5%;
   padding: 20px;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const StyledButtonContainer = styled(Paper)`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -30,6 +22,7 @@ interface IProps {
 export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   const [deleteCategory] = useDeleteCategoryMutation();
   const token = useToken();
+  const navigate = useNavigate();
 
   const { name, id, photo } = category;
 
@@ -39,22 +32,25 @@ export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   };
 
   return (
-    <NavLink to={`/main?category=${id}`}>
+    <Card>
       <StyledBox>
-        {photo && <img src={photo} alt={name} />}
+        <Box>{photo && <img height="100%" src={photo} alt={name} />}</Box>
         <Typography variant="body2">{name}</Typography>
-        {token && (
-          <StyledButtonContainer>
-            <Button onClick={(e) => onChangeClick(e, id)} size="small" variant="outlined">
-              Изменить
-            </Button>
-            <Button onClick={handleClickDelete} size="small" variant="outlined" color="error">
-              Удалить
-            </Button>
-          </StyledButtonContainer>
-        )}
       </StyledBox>
-    </NavLink>
+      {token && (
+        <CardActions>
+          <Button variant="contained" onClick={(e) => onChangeClick(e, id)} size="small">
+            Изменить
+          </Button>
+          <Button variant="contained" onClick={handleClickDelete} size="small" color="error">
+            Удалить
+          </Button>
+          <Button onClick={() => navigate(`/main?category=${id}`)} size="small" variant="outlined">
+            Перейти к операциям
+          </Button>
+        </CardActions>
+      )}
+    </Card>
   );
 });
 

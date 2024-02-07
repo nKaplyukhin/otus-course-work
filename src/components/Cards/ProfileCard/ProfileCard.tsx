@@ -16,10 +16,10 @@ export const ProfileCard = memo(({ onChangeDataClick, onChangePasswordClick, dat
       <Typography variant="h5"> Эл. почта: {data.email}</Typography>
     </CardContent>
     <CardActions>
-      <Button onClick={onChangeDataClick} variant="outlined" size="small">
+      <Button onClick={onChangeDataClick} variant="contained" size="small">
         Изменить данные
       </Button>
-      <Button onClick={onChangePasswordClick} variant="contained" size="small">
+      <Button onClick={onChangePasswordClick} variant="contained" color="secondary" size="small">
         Изменить пароль
       </Button>
     </CardActions>

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Button, styled } from '@mui/material';
+import { Box, Button, Typography, styled } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 const StyledBox = styled(Box)`
   display: flex;
+  flex-direction: column;
   gap: 5px;
-  align-items: center;
-  justify-content: space-between;
 `;
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -37,12 +36,12 @@ export const InputFile = ({ register, defaultValue }: IProps) => {
   };
 
   return (
-    <>
-      <StyledBox>{text}</StyledBox>
-      <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+    <StyledBox>
+      <Typography>{text}</Typography>
+      <Button component="label" variant="contained" color="secondary" startIcon={<CloudUploadIcon />}>
         Upload file
         <VisuallyHiddenInput {...register} onChange={handleChange} type="file" />
       </Button>
-    </>
+    </StyledBox>
   );
 };
