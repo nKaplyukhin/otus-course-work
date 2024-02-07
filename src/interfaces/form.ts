@@ -20,11 +20,13 @@ export interface IOperationForm {
   desc?: string;
   categoryId: string;
   type: EOperation;
+  file: FileList;
 }
 
 export interface ICategoryForm {
   name: string;
   photo?: string;
+  file?: FileList;
 }
 
 

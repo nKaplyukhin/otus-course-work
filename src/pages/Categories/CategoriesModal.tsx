@@ -5,6 +5,7 @@ import { useAddCategoryMutation, useGetCategoryQuery, useUpdateCategoryMutation 
 import { ICategoryForm } from 'interfaces/form';
 import { useToken } from 'hooks/useToken';
 import { CircularProgress, Typography } from '@mui/material';
+import { uploadImage } from 'utils/fetch';
 
 interface IProps {
   closeModal: () => void;
@@ -27,8 +28,20 @@ const CategoryModalWithId = ({ closeModal, id, token }: ICategoryModalWithId) =>
   }
 
   const onSubmit = async (data: Partial<ICategoryForm>) => {
+    const newData: typeof data = {
+      name: data.name,
+    };
+
+    if (data.file && token) {
+      const { url } = await uploadImage(data.file, token);
+
+      if (url) {
+        newData.photo = url;
+      }
+    }
+
     const res = await updateCategory({
-      body: data,
+      body: newData,
       id,
       token,
     });
@@ -48,8 +61,23 @@ const CategoryModalWithoutId = ({ closeModal, token }: IategoryModalWithoutId) =
   const [addCategory] = useAddCategoryMutation();
 
   const onSubmit = async (data: Partial<ICategoryForm>) => {
+    const newData: typeof data = {
+      name: data.name,
+    };
+
+    console.log(data);
+
+    if (data.file && token) {
+      const { url } = await uploadImage(data.file, token);
+      console.log(url);
+
+      if (url) {
+        newData.photo = url;
+      }
+    }
+
     const res = await addCategory({
-      body: data,
+      body: newData,
       token,
     });
 

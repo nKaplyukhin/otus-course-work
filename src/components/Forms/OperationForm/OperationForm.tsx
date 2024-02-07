@@ -7,7 +7,7 @@ import { IOperationForm } from 'interfaces/form';
 import { useGetCategoriesQuery } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
 import { NavLink } from 'react-router-dom';
-import { addOperationSchema } from '../schemas';
+import { operationSchema } from '../schemas';
 
 const StyledForm = styled(Box)`
   padding: 20px;
@@ -46,7 +46,7 @@ export const OperationForm = ({ values, submitError, isLoading, onSubmit }: IPro
     handleSubmit,
   } = useForm({
     defaultValues: { ...values, categoryId: values?.category?.id },
-    resolver: yupResolver(addOperationSchema),
+    resolver: yupResolver(operationSchema),
   });
   const buttonText = values ? 'Редактирование' : 'Создание';
 
@@ -101,6 +101,7 @@ export const OperationForm = ({ values, submitError, isLoading, onSubmit }: IPro
           </option>
         ))}
       </Select>
+
       <ErrorText>{submitError}</ErrorText>
       <Button variant="contained" type="submit">
         {isLoading && <CircularProgress sx={{ color: 'inherit' }} size={15} />} {buttonText}

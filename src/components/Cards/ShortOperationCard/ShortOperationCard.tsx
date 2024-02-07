@@ -5,10 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { getDateFromDateString } from 'utils/date';
 
 const CategoryImage = styled('img')`
-  border: 1px solid red;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
 `;
 
 const StyledItem = styled(Typography)`

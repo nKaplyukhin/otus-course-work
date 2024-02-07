@@ -5,6 +5,7 @@ import { useDeleteCategoryMutation } from 'store/rtk/categories';
 import { useToken } from 'hooks/useToken';
 import { NavLink } from 'react-router-dom';
 import { addDefaults } from 'utils/other';
+import { Image } from '@mui/icons-material';
 
 const StyledBox = styled(Paper)`
   display: flex;
@@ -30,7 +31,7 @@ export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   const [deleteCategory] = useDeleteCategoryMutation();
   const token = useToken();
 
-  const { name, id } = category;
+  const { name, id, photo } = category;
 
   const handleClickDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     addDefaults(e);
@@ -40,6 +41,7 @@ export const CategoryCard = memo(({ category, onChangeClick }: IProps) => {
   return (
     <NavLink to={`/main?category=${id}`}>
       <StyledBox>
+        {photo && <img src={photo} alt={name} />}
         <Typography variant="body2">{name}</Typography>
         {token && (
           <StyledButtonContainer>

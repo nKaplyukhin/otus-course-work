@@ -29,7 +29,7 @@ export const loginSchema = yup.object({
   password: passwordField,
 });
 
-export const addOperationSchema = yup.object({
+export const operationSchema = yup.object({
   amount: yup.number().positive('Должно быть > 0').required('Обязательно для заполнения'),
   name: yup.string().required('Обязательно для заполнения'),
   desc: yup.string(),
@@ -48,5 +48,5 @@ export const changeProfileDataSchema = yup.object({
 
 export const categorySchema = yup.object({
   name: nameField,
-  photo: yup.string()
+  file: yup.mixed()
 });
