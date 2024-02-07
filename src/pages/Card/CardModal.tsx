@@ -5,6 +5,7 @@ import { useToken } from 'hooks/useToken';
 import { useAddOperationMutation, useUpdateOperationMutation } from 'store/rtk/operations';
 import { IOperationForm } from 'interfaces/form';
 import { IOperation } from 'interfaces/operation';
+import { ICustomizedFetchBaseQueryError } from 'interfaces/server';
 
 interface IProps {
   closeModal: () => void;
@@ -16,6 +17,9 @@ export const CardModal = ({ closeModal, data }: IProps) => {
 
   const [addOperation, { error: addError, isLoading: isAddLoading }] = useAddOperationMutation();
   const [updateOperation, { error: updateError, isLoading: isUpdateLoading }] = useUpdateOperationMutation();
+
+  const { data: addErrorData } = (addError as ICustomizedFetchBaseQueryError) || {};
+  const { data: updateErrorData } = (updateError as ICustomizedFetchBaseQueryError) || {};
 
   const onSubmit = async (form: Partial<IOperationForm>) => {
     let res = null;
@@ -40,7 +44,7 @@ export const CardModal = ({ closeModal, data }: IProps) => {
   return (
     <Modal onClose={closeModal}>
       <OperationForm
-        // submitError={data ? updateError : addError}
+        submitError={data ? updateErrorData?.errors[0].message : addErrorData?.errors[0].message}
         isLoading={data ? isUpdateLoading : isAddLoading}
         onSubmit={onSubmit}
         values={data}

@@ -1,5 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ICategory } from 'interfaces/category';
+import { ICustomizedFetchBaseQueryError } from 'interfaces/server';
 import { ISorting } from 'interfaces/sorting';
 import { getHeadersWithAuthToken } from 'utils/other';
 
@@ -19,46 +20,45 @@ interface ICategoryQuery {
 
 interface IDeleteResponse {
   token?: string;
-  id: string
+  id: string;
 }
-
 
 export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
-  baseQuery: fetchBaseQuery({
+  baseQuery: <BaseQueryFn<string | FetchArgs, unknown, ICustomizedFetchBaseQueryError, object>>fetchBaseQuery({
     baseUrl: process.env.API,
   }),
-  tagTypes: ["Categories"],
+  tagTypes: ['Categories'],
   endpoints: (builder) => ({
     getCategories: builder.query<IResponse, ICategoryQuery>({
       query: ({ token, sorting }) => {
         const params = {
-          sorting: JSON.stringify(sorting)
-        }
+          sorting: JSON.stringify(sorting),
+        };
         return {
           url: 'categories',
           params,
-          ...getHeadersWithAuthToken(token)
-        }
+          ...getHeadersWithAuthToken(token),
+        };
       },
-      providesTags: ["Categories"],
+      providesTags: ['Categories'],
     }),
 
-    getCategory: builder.query<ICategory, { id: string | null, token: string | undefined }>({
+    getCategory: builder.query<ICategory, { id: string | null; token: string | undefined }>({
       query: ({ id, token }) => ({
         url: `categories/${id}`,
-        ...getHeadersWithAuthToken(token)
+        ...getHeadersWithAuthToken(token),
       }),
     }),
 
     addCategory: builder.mutation({
       query: ({ body, token }) => ({
-        url: "categories",
+        url: 'categories',
         method: 'POST',
         ...getHeadersWithAuthToken(token),
-        body
+        body,
       }),
-      invalidatesTags: ['Categories']
+      invalidatesTags: ['Categories'],
     }),
 
     updateCategory: builder.mutation({
@@ -66,20 +66,26 @@ export const categoriesApi = createApi({
         url: `categories/${id}`,
         method: 'PUT',
         ...getHeadersWithAuthToken(token),
-        body
+        body,
       }),
-      invalidatesTags: ['Categories']
+      invalidatesTags: ['Categories'],
     }),
 
     deleteCategory: builder.mutation<ICategory, IDeleteResponse>({
       query: ({ id, token }) => ({
         url: `categories/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
         ...getHeadersWithAuthToken(token),
       }),
-      invalidatesTags: ['Categories']
-    })
+      invalidatesTags: ['Categories'],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoryQuery, useUpdateCategoryMutation } = categoriesApi;
+export const {
+  useGetCategoriesQuery,
+  useAddCategoryMutation,
+  useDeleteCategoryMutation,
+  useGetCategoryQuery,
+  useUpdateCategoryMutation,
+} = categoriesApi;

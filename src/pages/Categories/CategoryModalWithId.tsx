@@ -4,6 +4,7 @@ import { Modal } from 'components/Modal';
 import { useGetCategoryQuery, useUpdateCategoryMutation } from 'store/rtk/categories';
 import { ICategoryForm } from 'interfaces/form';
 import { CircularProgress } from '@mui/material';
+import { ICustomizedFetchBaseQueryError } from 'interfaces/server';
 import { getBodyFromData } from './helpers';
 
 interface IProps {
@@ -14,7 +15,9 @@ interface IProps {
 
 export const CategoryModalWithId = ({ closeModal, id, token }: IProps) => {
   const { isLoading, data } = useGetCategoryQuery({ id, token });
-  const [updateCategory] = useUpdateCategoryMutation();
+  const [updateCategory, { error, isLoading: isLoadingAdd }] = useUpdateCategoryMutation();
+
+  const { data: errorData } = (error as ICustomizedFetchBaseQueryError) || {};
 
   if (isLoading) {
     return <CircularProgress size={100} />;
@@ -35,7 +38,12 @@ export const CategoryModalWithId = ({ closeModal, id, token }: IProps) => {
 
   return (
     <Modal onClose={closeModal}>
-      <CategoryForm isLoading={isLoading} onSubmit={onSubmit} values={id ? data : undefined} />
+      <CategoryForm
+        submitError={errorData?.errors[0].message}
+        isLoading={isLoadingAdd}
+        onSubmit={onSubmit}
+        values={id ? data : undefined}
+      />
     </Modal>
   );
 };

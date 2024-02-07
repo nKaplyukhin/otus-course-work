@@ -4,7 +4,7 @@ import { TOKEN_KEY } from 'constansts/token';
 import { RootState } from 'store/store';
 import { ILoginForm, IRegistrationForm } from 'interfaces/form';
 import { deleteCookie, getCookie, setCookie } from 'utils/cookie';
-import { ValidationErrors } from 'interfaces/store';
+import { IServerErrors } from 'interfaces/server';
 
 export interface tokenState {
   token: string | undefined;
@@ -18,13 +18,12 @@ const initialState: tokenState = {
   loading: false,
 };
 
-
 export const signin = createAsyncThunk('token/login', async (body: ILoginForm, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${process.env.API}signin`, body);
     return response.data;
   } catch (err) {
-    const error: AxiosError<ValidationErrors> = err;
+    const error: AxiosError<IServerErrors> = err;
     if (!error.response) {
       throw err;
     }
@@ -42,7 +41,7 @@ export const signup = createAsyncThunk('token/registration', async (body: IRegis
     });
     return response.data;
   } catch (err) {
-    const error: AxiosError<ValidationErrors> = err;
+    const error: AxiosError<IServerErrors> = err;
     if (!error.response) {
       throw err;
     }
